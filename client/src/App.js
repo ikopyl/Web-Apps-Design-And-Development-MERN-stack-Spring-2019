@@ -11,6 +11,7 @@ import WeatherData from './components/WeatherData';
 
 import './style/App.css';
 import LocationData from "./components/LocationData";
+import Tiles from './components/Tiles';
 
 class App extends Component {
   render() {
@@ -31,7 +32,10 @@ class App extends Component {
             <Route path="/weather" component={WeatherData} />
           </div>
         </BrowserRouter>
+        <div><Tiles /></div>
       </Provider>
+      
+
     );
   }
 }
