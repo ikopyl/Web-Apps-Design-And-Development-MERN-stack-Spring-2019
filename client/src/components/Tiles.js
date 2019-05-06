@@ -37,6 +37,7 @@ class Tiles extends Component {
                         <option>Please Select an App...</option>
                         <option value="BreweriesApp">Breweries</option>
                 </select>
+                <Breweries />
             </span>
             <span className="appTiles">
                 <select 
@@ -46,6 +47,7 @@ class Tiles extends Component {
                         <option>Please Select an App...</option>
                         <option value="BreweriesApp">Breweries</option>
                 </select>
+                <Breweries />
             </span>
             <span className="appTiles">
                 <select 
@@ -55,6 +57,7 @@ class Tiles extends Component {
                         <option>Please Select an App...</option>
                         <option value="BreweriesApp">Breweries</option>
                 </select>
+                <Breweries />
             </span>
             <span className="appTiles">
                 <select 
@@ -64,6 +67,7 @@ class Tiles extends Component {
                         <option>Please Select an App...</option>
                         <option value="BreweriesApp">Breweries</option>
                 </select>
+                <Breweries />
             </span>
             </div>
         </div>
