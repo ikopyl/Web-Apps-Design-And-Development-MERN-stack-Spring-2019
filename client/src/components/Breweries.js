@@ -31,7 +31,6 @@ class Breweries extends Component {
         this.setState({
           [e.target.name]: e.target.value, // setting the brewery to whatever we type in
         });
-        console.log(this.state.breweryWhat)
       };
 
       onChange2 = e => {
@@ -47,9 +46,6 @@ class Breweries extends Component {
         this.setState({
           favorite: newFavorites
           });
-        console.log(e.target)
-        console.log(this.state.favorite)
-        console.log(newFavorites)
         };
 
     render() {

@@ -1,4 +1,13 @@
-div {
+.appTiles {
     display: flexbox;
     flex-wrap: wrap;
+    float: left;
+    width: 50%;
+    height: 50%;
+    align-content: center
+}
+
+.masterDiv {
+    width: 100%;
+    height: 100%
 }
