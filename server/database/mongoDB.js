@@ -1,70 +1,76 @@
-const { MongoClient } = require('mongodb');
+const express = require('express');
+const moment = require('moment');
+const axios = require('axios');
+const {MongoClient} = require('mongodb');
 
+const bodyParser = require('body-parser');
+
+//mongodb url & database name
 const databaseUrl = 'mongodb://localhost:27017';
 const databaseName = 'HW3';
-const client = new MongoClient(databaseUrl);
-let db = null;
 
-const getConnection = callback => {
-  if (db) return callback(db);
-  client.connect(err => {
-    if (err) {
-      console.log(err);
-    }
-    console.log('Connected successfully to server');
+//creating a new MongoClient
+const client = new MongoClient(databaseUrl);
+
+let db;
+
+//you will need this method in each of your backends in order to establish a connection to the database and manage the async weirdness
+const getConnection = (callback) => {
+  if(db) return callback(db);
+  client.connect((err) => {
+    console.log("Connected successfully to server");
     db = client.db(databaseName);
     return callback(db);
   });
 };
-
-module.exports = databaseHandler = {
-  db: db,
-
-  //getter functions
-  getFromDatabaseCollection(collection, searchFor) {
-    db.collection(collection)
-      .find(searchFor)
-      .toArray()
-      .then(docs => {
-        return docs;
-      })
-      .catch(e => {
-        return e;
-      });
-  },
-
-  addToDatabase(collection, addThisObject) {
-    db.collection(collection).insertOne(addThisObject);
-  },
-
-  findAndUpdateInDatabase(collection, find, value) {
-    const updater = {
-      $set: {
-        empty: 'some value'
-      }
-    };
-    db.collection(collection)
-      .findOneAndUpdate(
-        {
-          query: value
-        },
-        updater
-      )
-      .then(docs => {
-        return docs;
-      })
-      .catch(e => {
-        return e;
-      });
-  }
+//helper method for adding objects to the database
+//first parameter is the string name of the collection, second is an object {key:"value"}
+const addToDatabase = (collection, addThisObject) => {
+  getConnection((connection) => {
+    connection.collection(collection).insertOne(addThisObject);
+  });
 };
 
-db = getConnection(function(response) {
-  databaseHandler.db = response;
-  console.log('database value in databaseHandler: ', databaseHandler.db);
-  return response;
-});
+//helper method for updating the first document that matches the first parameter
+//first parameter is the string name of the collection, second is an object {findObjectWithThisValue:"value"}, third is an object {updatedOrNewKey:"value"}
+const findAndUpdate = (collection, findThis, updateToThis) => {
+  getConnection((connection) => {
+    connection.collection(collection).updateOne(findThis, {$set: updateToThis}, function(err, res) {
+      if(err) throw err;
+      console.log("1 document updated");
+    });
+  });
+};
 
-module.exports = {
-  databaseHandler: databaseHandler
+//helper method for updating all documents that match the first parameter
+//first parameter is the string name of the collection, second is an object {findObjectWithThisValue:"value"}, third is an object {updatedOrNewKey:"value"}
+const findAndUpdateMany = (collection, findThis, updateToThis) => {
+  getConnection((connection) => {
+    connection.collection(collection).updateMany(findThis, {$set: updateToThis}, function(err, res) {
+      if(err) throw err;
+      console.log(res.result.nModified + " document(s) updated");
+    });
+  });
+};
+
+//helper method for deleting the first documents that match the first parameter
+//first parameter is the string name of the collection, the second is an object {findObjectWithThisValue:"value"}
+const findAndDelete = (collection, findThis) => {
+  getConnection((connection) => {
+    connection.collection(collection).deleteOne(findThis, function(err, res) {
+      if(err) throw err;
+      console.log("1 document deleted");
+    });
+  });
+};
+
+//helper method for deleting the all documents that match the first parameter
+//first parameter is the string name of the collection, the second is an object {findObjectWithThisValue:"value"}
+const findAndDeleteMany = (collection, findThis) => {
+  getConnection((connection) => {
+    connection.collection(collection).deleteMany(findThis, function(err, res) {
+      if(err) throw err;
+      console.log(res.result.n + " document(s) deleted");
+    });
+  });
 };
