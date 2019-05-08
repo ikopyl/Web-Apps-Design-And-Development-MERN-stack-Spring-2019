@@ -12,24 +12,35 @@ class Tiles extends Component {
 
     onChange = e => {
         this.setState({app: e.target.value})
-        if(e.target.value = "BreweriesApp") {
-            return <Breweries />
-        }else{
-            return (
-                <div>Test</div>
-            );
-        }
+    }
 
+    AppSelector = (app) => {
+        switch(app) {
+            case 'BreweriesApp':
+                return <Breweries />
+            case '':
+                return "Select an App"
+        };
     }
 
     render() {
-        return (
+        return(
         <div>
             <div>
                 
             </div>
             <div className="masterDiv">
-                <span className="appTiles">
+                <div className="appTiles">
+                <select 
+                    className="selector"
+                    value={this.state.app} 
+                    onChange={this.onChange}>
+                        <option value=''>Please Select an App...</option>
+                        <option value="BreweriesApp">Breweries</option>
+                </select>
+                {this.AppSelector(this.state.app)}
+            </div>
+            <div className="appTiles">
                 <select 
                     className="selector"
                     value={this.state.app} 
@@ -37,9 +48,8 @@ class Tiles extends Component {
                         <option>Please Select an App...</option>
                         <option value="BreweriesApp">Breweries</option>
                 </select>
-                <Breweries />
-            </span>
-            <span className="appTiles">
+            </div>
+            <div className="appTiles">
                 <select 
                     className="selector"
                     value={this.state.app} 
@@ -47,9 +57,8 @@ class Tiles extends Component {
                         <option>Please Select an App...</option>
                         <option value="BreweriesApp">Breweries</option>
                 </select>
-                <Breweries />
-            </span>
-            <span className="appTiles">
+            </div>
+            <div className="appTiles">
                 <select 
                     className="selector"
                     value={this.state.app} 
@@ -57,18 +66,7 @@ class Tiles extends Component {
                         <option>Please Select an App...</option>
                         <option value="BreweriesApp">Breweries</option>
                 </select>
-                <Breweries />
-            </span>
-            <span className="appTiles">
-                <select 
-                    className="selector"
-                    value={this.state.app} 
-                    onChange={this.onChange}>
-                        <option>Please Select an App...</option>
-                        <option value="BreweriesApp">Breweries</option>
-                </select>
-                <Breweries />
-            </span>
+            </div>
             </div>
         </div>
         );
