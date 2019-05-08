@@ -1,7 +1,9 @@
 import { SEARCH_WEATHER } from '../actions/types';
 
 const initialState = {
-  weatherData: [1,2,3],
+  weatherData: {
+    consolidated_weather: ['weather']
+  },
   searchCity: '',
   searchState: '',
 };

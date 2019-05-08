@@ -150,18 +150,12 @@ app.get('/weather', (req, res) => {
 
     })
     .catch((err) => {
-      console.log(err)
+      console.log(err);
       throw new Error();
       res.send('location request failed ' + err);
     });
 
-})
-
-const testObject = {name: "Joel", lastname: "Samaniego", birthday: "07/17/1981"};
-//addToDatabase('users', testObject);
-
-//test case updating the first object in the database
-//findAndUpdate('searches', {name: "Joel"}, {shirtSize: "XL"});
+});
 
 app.listen(PORT, () => {
   console.log(`Microservice weather is listening on port ${PORT}`);

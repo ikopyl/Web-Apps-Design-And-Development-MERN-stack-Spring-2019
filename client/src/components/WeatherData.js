@@ -7,11 +7,16 @@ class WeatherData extends Component {
     super(props);
     this.state = {
       locationData: [],
-      weatherData: [1,2,3],
+      weatherData: {},
       searchCity: '',
       searchState: '',
-      weather_state_abbr: '...',
-      weather_icon_source: '',
+      weather_state_abbr: 'hc',
+      weather_icon_source: 'the-internet',
+      humidity: 'Muggy',
+      wind_direction_compass: 'West',
+      wind_speed: 'Gusty',
+      the_temp: 'Hot',
+
     };
   }
 
@@ -42,7 +47,7 @@ class WeatherData extends Component {
   render() {
     return (
       <div className="container">
-        <form onSubmit={this.onSubmit} style={{ display: 'flex' }}>
+        <form onSubmit={this.onSubmit} style={{display: 'flex'}}>
           <label>
             City:
             <input
@@ -68,7 +73,33 @@ class WeatherData extends Component {
           />
         </form>
         <div>
-          {JSON.stringify(this.props.weatherData)}
+          {this.props.weatherData.consolidated_weather.map((r) => {
+            return (
+
+              <div className="ui card">
+                <div className="image">
+                  <img src="https://www.metaweather.com/static/img/weather/c.svg"></img>
+                </div>
+                <div className="content">
+                  <div>
+                    <span className="ui sub header">Humidity</span> <span>{r.humidity}</span>
+                  </div>
+                  <div>
+                    <span className="ui sub header">Temperature {r.the_temp}</span>
+                  </div>
+                  <div>
+                    <span className="ui sub header">Wind Direction {r.wind_direction_compass}</span>
+                  </div>
+                  <div>
+                    <span className="ui sub header">Wind Speed {r.wind_speed}</span>
+                  </div>
+                  <div>
+                    <span className="ui sub header">{r.weather_state_abbr}</span>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     );
