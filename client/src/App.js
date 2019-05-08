@@ -13,7 +13,30 @@ import './style/App.css';
 import LocationData from "./components/LocationData";
 import Tiles from './components/Tiles';
 
+
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        indexApps: []
+    }
+}
+  addApp = () => {
+    const newIndexapps = this.state.indexApps.slice();
+    const lengthIndex = newIndexapps.length;
+    newIndexapps[lengthIndex] = lengthIndex + 1;
+    this.setState({
+      indexApps: newIndexapps
+      });
+  }
+
+  removeApp = () => {
+    const newIndexapps = this.state.indexApps.slice();
+    let popped = newIndexapps.pop();
+      this.setState({
+        indexApps: newIndexapps
+        });
+  }
   render() {
     return (
       <Provider store={store}>
@@ -32,7 +55,13 @@ class App extends Component {
             <Route path="/weather" component={WeatherData} />
           </div>
         </BrowserRouter>
-        <div><Tiles /></div>
+        <button onClick={this.addApp}>Add an App</button>
+        <button onClick={this.removeApp}>Remove an App</button>
+        {this.state.indexApps.map((i) => {
+          return <Tiles key={i} />
+        })
+      }
+        {/* <div><Tiles /></div> */}
       </Provider>
       
 

@@ -29,9 +29,6 @@ class Tiles extends Component {
     render() {
         return(
         <div>
-            <div>
-                
-            </div>
             <div className="masterDiv">
                 <div className="appTiles">
                 <select 
@@ -43,40 +40,7 @@ class Tiles extends Component {
                         <option value="LookUpMusicBand">Music artists</option>
                 </select>
                 {this.AppSelector(this.state.app)}
-            </div>
-            <div className="appTiles">
-            <select 
-                    className="selector"
-                    value={this.state.app} 
-                    onChange={this.onChange}>
-                        <option value=''>Please Select an App...</option>
-                        <option value="BreweriesApp">Breweries</option>
-                        <option value="LookUpMusicBand">Music artists</option>
-                </select>
-                {this.AppSelector(this.state.app)}
-            </div>
-            <div className="appTiles">
-            <select 
-                    className="selector"
-                    value={this.state.app} 
-                    onChange={this.onChange}>
-                        <option value=''>Please Select an App...</option>
-                        <option value="BreweriesApp">Breweries</option>
-                        <option value="LookUpMusicBand">Music artists</option>
-                </select>
-                {this.AppSelector(this.state.app)}
-            </div>
-            <div className="appTiles">
-            <select 
-                    className="selector"
-                    value={this.state.app} 
-                    onChange={this.onChange}>
-                        <option value=''>Please Select an App...</option>
-                        <option value="BreweriesApp">Breweries</option>
-                        <option value="LookUpMusicBand">Music artists</option>
-                </select>
-                {this.AppSelector(this.state.app)}
-            </div>
+                </div>
             </div>
         </div>
         );
