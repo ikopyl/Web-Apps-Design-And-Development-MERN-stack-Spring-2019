@@ -8,6 +8,7 @@ import Home from './components/Home';
 import LookupMusicBand from './components/LookupMusicBand';
 import Breweries from './components/Breweries';
 import WeatherData from './components/WeatherData';
+// import TileTypes from './components/TileTypes'
 
 import './style/App.css';
 import LocationData from "./components/LocationData";
@@ -21,10 +22,16 @@ class App extends Component {
         indexApps: []
     }
 }
+
+  onChange = e => {
+    this.setState({app: e.target.value})
+  }
   addApp = () => {
     const newIndexapps = this.state.indexApps.slice();
-    const lengthIndex = newIndexapps.length;
-    newIndexapps[lengthIndex] = lengthIndex + 1;
+    newIndexapps.push({ 
+      key: newIndexapps.length,
+      tileType: null
+    })
     this.setState({
       indexApps: newIndexapps
       });
@@ -32,12 +39,13 @@ class App extends Component {
 
   removeApp = () => {
     const newIndexapps = this.state.indexApps.slice();
-    let popped = newIndexapps.pop();
+    newIndexapps.pop();
       this.setState({
         indexApps: newIndexapps
         });
   }
   render() {
+    console.log(this.state.indexApps)
     return (
       <Provider store={store}>
         <BrowserRouter>
@@ -57,11 +65,26 @@ class App extends Component {
         </BrowserRouter>
         <button onClick={this.addApp}>Add an App</button>
         <button onClick={this.removeApp}>Remove an App</button>
-        {this.state.indexApps.map((i) => {
-          return <Tiles key={i} />
-        })
-      }
-        {/* <div><Tiles /></div> */}
+        <div className="masterDiv">
+          {this.state.indexApps.map((i) => {
+            console.log(i)
+            return( <div>
+              <Tiles key={i.key} tileType={i.tileType} onChange ={ (e) => {
+                 const newIndexapps = this.state.indexApps.slice();
+                 newIndexapps[i.key].tileType = e.target.value
+                 this.setState({
+                  indexApps: newIndexapps,
+
+                  });
+              }}
+
+              />
+              <div>{i.key}</div>
+            </div>
+            ); 
+          })    
+          }
+        </div>
       </Provider>
       
 

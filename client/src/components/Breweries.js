@@ -103,7 +103,6 @@ class Breweries extends Component {
                           checked={this.state.favorite[i]}
                           onChange={this.onFavorite}
                         />
-                        {i}
                       </td>
                   </tr>
                   );

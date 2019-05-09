@@ -1,7 +1,8 @@
 .appTiles {
     float: left;
     align-content: center;
-    padding-right: 50px;
+    /* padding-right: 50px; */
+    width: 50%
 }
 
 .masterDiv {
