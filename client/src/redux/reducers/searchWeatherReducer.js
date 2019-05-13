@@ -1,9 +1,12 @@
 import { SEARCH_WEATHER } from '../actions/types';
 
 const initialState = {
-  weatherData: [1,2,3],
+  weatherData: {
+    consolidated_weather: ['weather']
+  },
   searchCity: '',
   searchState: '',
+  weather_icon_source: 'https://www.metaweather.com/static/img/weather/s.svg',
 };
 
 const searchWeatherReducer = (state = initialState, action) => {
@@ -15,6 +18,7 @@ const searchWeatherReducer = (state = initialState, action) => {
         weatherData : action.payload,
         searchCity: action.searchCity,
         searchState: action.searchState,
+        weather_icon_source: action.weather_icon_source,
 
       };
     default:
