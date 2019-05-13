@@ -15,10 +15,6 @@ const Header = () => {
           Breweries
         </Link>
         <span> | </span>
-        <Link className="linkStyle" to="/location">
-          Location
-        </Link>
-        <span> | </span>
         <Link className="linkStyle" to="/weather">
           Weather
         </Link>
