@@ -7,11 +7,11 @@ class WeatherData extends Component {
     super(props);
     this.state = {
       locationData: [],
-      weatherData: {},
+      weatherData: {"consolidated_weather": [],},
       searchCity: '',
       searchState: '',
       weather_state_abbr: 'hc',
-      weather_icon_source: 'the-internet',
+      weather_icon_source: "https://www.metaweather.com/static/img/weather/s.svg",
       humidity: 'Muggy',
       wind_direction_compass: 'West',
       wind_speed: 'Gusty',
@@ -46,8 +46,8 @@ class WeatherData extends Component {
 
   render() {
     return (
-      <div className="container">
-        <form onSubmit={this.onSubmit} style={{display: 'flex'}}>
+      <div className="container ui grid">
+        <form className='eight wide column row' onSubmit={this.onSubmit} style={{display: 'flex'}}>
           <label>
             City:
             <input
@@ -72,34 +72,33 @@ class WeatherData extends Component {
             className='btn'
           />
         </form>
-        <div>
-          {this.props.weatherData.consolidated_weather.map((r) => {
-            return (
+        <div className="row">
+          <div className="ui card">
+            <div className="image">
+              <img src={this.props.weather_icon_source} alt='weather state icon'></img>
+            </div>
+            <div className="content">
+              <div>
+                <span className="ui sub header">Humidity {this.props.weatherData.consolidated_weather[0].humidity}%</span>
 
-              <div className="ui card">
-                <div className="image">
-                  <img src="https://www.metaweather.com/static/img/weather/c.svg"></img>
-                </div>
-                <div className="content">
-                  <div>
-                    <span className="ui sub header">Humidity</span> <span>{r.humidity}</span>
-                  </div>
-                  <div>
-                    <span className="ui sub header">Temperature {r.the_temp}</span>
-                  </div>
-                  <div>
-                    <span className="ui sub header">Wind Direction {r.wind_direction_compass}</span>
-                  </div>
-                  <div>
-                    <span className="ui sub header">Wind Speed {r.wind_speed}</span>
-                  </div>
-                  <div>
-                    <span className="ui sub header">{r.weather_state_abbr}</span>
-                  </div>
-                </div>
               </div>
-            );
-          })}
+              <div>
+                <span
+                  className="ui sub header">Temperature {this.props.weatherData.consolidated_weather[0].the_temp} &nbsp; C</span>
+              </div>
+              <div>
+                <span
+                  className="ui sub header">Wind Direction {this.props.weatherData.consolidated_weather[0].wind_direction_compass}</span>
+              </div>
+              <div>
+                <span
+                  className="ui sub header">Wind Speed {this.props.weatherData.consolidated_weather[0].wind_speed} &nbsp; km</span>
+              </div>
+              <div>
+                <span className="ui sub header">{this.props.searchCity} &nbsp; {this.props.searchState}</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -112,6 +111,8 @@ const mapStateToProps = state => ({
   searchCity: state.searchWeather.searchCity,
   searchState: state.searchWeather.searchState,
   weatherData: state.searchWeather.weatherData,
+  weather_icon_source: state.searchWeather.weather_icon_source,
+
 });
 
 const mapDispatchToProps = {

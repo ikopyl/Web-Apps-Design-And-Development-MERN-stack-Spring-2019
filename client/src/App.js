@@ -26,8 +26,6 @@ class App extends Component {
 
             <Route path="/breweries" component={Breweries} />
 
-            <Route path="/location" component={LocationData} />
-
             <Route path="/weather" component={WeatherData} />
           </div>
         </BrowserRouter>
