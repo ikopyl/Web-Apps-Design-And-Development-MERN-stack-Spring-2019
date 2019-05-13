@@ -1,0 +1,14 @@
+.appTiles {
+    float: left;
+    align-content: center;
+    /* padding-right: 50px; */
+    width: 50%
+}
+
+.masterDiv {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

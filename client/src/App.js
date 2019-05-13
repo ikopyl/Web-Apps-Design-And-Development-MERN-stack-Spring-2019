@@ -8,12 +8,44 @@ import Home from './components/Home';
 import LookupMusicBand from './components/LookupMusicBand';
 import Breweries from './components/Breweries';
 import WeatherData from './components/WeatherData';
+// import TileTypes from './components/TileTypes'
 
 import './style/App.css';
 import LocationData from "./components/LocationData";
+import Tiles from './components/Tiles';
+
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        indexApps: []
+    }
+}
+
+  onChange = e => {
+    this.setState({app: e.target.value})
+  }
+  addApp = () => {
+    const newIndexapps = this.state.indexApps.slice();
+    newIndexapps.push({ 
+      key: newIndexapps.length,
+      tileType: null
+    })
+    this.setState({
+      indexApps: newIndexapps
+      });
+  }
+
+  removeApp = () => {
+    const newIndexapps = this.state.indexApps.slice();
+    newIndexapps.pop();
+      this.setState({
+        indexApps: newIndexapps
+        });
+  }
   render() {
+    console.log(this.state.indexApps)
     return (
       <Provider store={store}>
         <BrowserRouter>
@@ -29,7 +61,31 @@ class App extends Component {
             <Route path="/weather" component={WeatherData} />
           </div>
         </BrowserRouter>
+        <button onClick={this.addApp}>Add an App</button>
+        <button onClick={this.removeApp}>Remove an App</button>
+        <div className="masterDiv">
+          {this.state.indexApps.map((i) => {
+            console.log(i)
+            return( <div>
+              <Tiles key={i.key} tileType={i.tileType} onChange ={ (e) => {
+                 const newIndexapps = this.state.indexApps.slice();
+                 newIndexapps[i.key].tileType = e.target.value
+                 this.setState({
+                  indexApps: newIndexapps,
+
+                  });
+              }}
+
+              />
+              <div>{i.key}</div>
+            </div>
+            ); 
+          })    
+          }
+        </div>
       </Provider>
+      
+
     );
   }
 }
