@@ -68,7 +68,6 @@ class WeatherData extends Component {
           </label>
           <input
             type="Submit"
-            value="Search"
             className='btn'
           />
         </form>

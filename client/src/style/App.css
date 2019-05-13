@@ -32,6 +32,13 @@
   }
 }
 
+
+.red{color: #B03060;}
+.orange{color: #FE9A76;}
+.gold{color: #FFBF00;}
+.white{color:#FFFFFF;}
+.red{color:#FF0000;}
+
 img.icon {
  height: 30px;
 
@@ -68,9 +75,14 @@ img.icon {
   align-items: baseline;
 }
 
+.header-left-align{
+  text-align: left;
+}
+
 .linkStyle {
   color: #fff;
   text-decoration: none;
+  padding-right: 10px;
 
 }
 
