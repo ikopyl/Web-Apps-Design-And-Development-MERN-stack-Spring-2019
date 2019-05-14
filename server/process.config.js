@@ -24,11 +24,6 @@ module.exports = {
       name: 'weather',
       script: './microservices/weather.js',
       watch: true
-    },
-    {
-      name: 'movie',
-      script: './microservices/movie.js',
-      watch: true
     }
   ]
 };
