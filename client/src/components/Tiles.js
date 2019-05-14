@@ -3,6 +3,7 @@ import Breweries from './Breweries';
 import LookupMusicBand from './LookupMusicBand';
 import '../style/Tiles.css';
 import App from '../App';
+import WeatherData from "./WeatherData";
 
 class Tiles extends Component {
     constructor(props) {
@@ -18,9 +19,11 @@ class Tiles extends Component {
         console.log(this.props.tileType)
         switch(app) {
             case 'BreweriesApp':
-                return <Breweries />
+                return <Breweries />;
             case 'LookUpMusicBand':
-                return <LookupMusicBand />
+                return <LookupMusicBand />;
+          case 'Weather Data':
+                return <WeatherData/>;
             case '':
                 return "Select an App"
         };
@@ -36,6 +39,7 @@ class Tiles extends Component {
                 <option value=''>Please Select an App...</option>
                 <option value="BreweriesApp">Breweries</option>
                 <option value="LookUpMusicBand">Music artists</option>
+                <option value="Weather Data">Weather Data</option>
         </select>
         {this.AppSelector(this.props.tileType)}
         </div>
