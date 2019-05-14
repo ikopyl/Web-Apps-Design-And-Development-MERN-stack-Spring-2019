@@ -3,3 +3,6 @@ node_modules
 
 #IDE files
 .idea
+
+# ignore this for docker
+package-lock.json
