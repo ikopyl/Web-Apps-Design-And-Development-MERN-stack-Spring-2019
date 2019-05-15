@@ -11,6 +11,11 @@ apiProxy.on('error', (err, req, res) => {
   res.status(500).send('Proxy is down...');
 });
 
+const wsProxy = httpProxy.createProxyServer({
+  target: 'http://localhost:6000',
+  ws: true,
+});
+
 app.all('/search*', (req, res) => {
   apiProxy.web(req, res, { target: 'http://localhost:7100/' });
 });
@@ -25,6 +30,21 @@ app.all('/weather*', (req, res) => {
 
 app.all('/breweries*', (req, res) => {
   apiProxy.web(req, res, { target: 'http://localhost:7400/' });
+});
+
+app.all('/messanger*', (req, res) => {
+  apiProxy.web(req, res, { target: 'http://localhost:7500' });
+});
+
+app.all('/websocket*', (req, res) => {
+  console.log('incoming ws');
+  apiProxy.web(req, res, { target: 'http://localhost:6000/websocket' });
+});
+
+appServer.on('upgrade', (req, socket, head) => {
+  console.log('upgrade ws here');
+  console.log(req);
+  wsProxy.ws(req, socket, head);
 });
 
 const PORT = process.env.GATEWAY_PORT || 5000;
