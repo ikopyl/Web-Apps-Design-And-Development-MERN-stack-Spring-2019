@@ -8,7 +8,7 @@ const config = require('../config/config');
 
 module.exports = (server) => {
   // Register User
-  server.post('/register', (req, res, next) => {
+  server.post('/user_register', (req, res, next) => {
     const { email, password } = req.body;
 
     const user = new User({
@@ -33,7 +33,7 @@ module.exports = (server) => {
   });
 
   // Auth User
-  server.post('/auth', async (req, res, next) => {
+  server.post('/user_auth', async (req, res, next) => {
     const { email, password } = req.body;
 
     try {
