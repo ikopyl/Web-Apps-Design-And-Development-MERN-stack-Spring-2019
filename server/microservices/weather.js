@@ -1,25 +1,32 @@
 const express = require('express');
 const moment = require('moment');
 const axios = require('axios');
-const {MongoClient} = require('mongodb');
+const { MongoClient } = require('mongodb');
 
 const bodyParser = require('body-parser');
 
-//mongodb url & database name
-const databaseUrl = 'mongodb://localhost:27017';
-const databaseName = 'HW3';
+const config = require('../config');
+const responseTemplate = require('./templates/ResponseTemplate');
+
+//creating an app here as a microservice
+const app = express();
+app.use(bodyParser.json());
+
+const PORT = config.WEATHER_PORT;     // 7300
+const DB_URL = config.DB_URL;         // mongodb://localhost:27017
+const DB_NAME = config.DB_NAME;       // finalProject
 
 //creating a new MongoClient
-const client = new MongoClient(databaseUrl);
+const client = new MongoClient(DB_URL);
 
 let db;
 
 //you will need this method in each of your backends in order to establish a connection to the database and manage the async weirdness
 const getConnection = (callback) => {
-  if(db) return callback(db);
+  if (db) return callback(db);
   client.connect((err) => {
-    console.log("Connected successfully to server");
-    db = client.db(databaseName);
+    console.log('Connected successfully to server');
+    db = client.db(DB_NAME);
     return callback(db);
   });
 };
@@ -35,10 +42,12 @@ const addToDatabase = (collection, addThisObject) => {
 //first parameter is the string name of the collection, second is an object {findObjectWithThisValue:"value"}, third is an object {updatedOrNewKey:"value"}
 const findAndUpdate = (collection, findThis, updateToThis) => {
   getConnection((connection) => {
-    connection.collection(collection).updateOne(findThis, {$set: updateToThis}, function(err, res) {
-      if(err) throw err;
-      console.log("1 document updated");
-    });
+    connection
+      .collection(collection)
+      .updateOne(findThis, { $set: updateToThis }, function(err, res) {
+        if (err) throw err;
+        console.log('1 document updated');
+      });
   });
 };
 
@@ -46,10 +55,12 @@ const findAndUpdate = (collection, findThis, updateToThis) => {
 //first parameter is the string name of the collection, second is an object {findObjectWithThisValue:"value"}, third is an object {updatedOrNewKey:"value"}
 const findAndUpdateMany = (collection, findThis, updateToThis) => {
   getConnection((connection) => {
-    connection.collection(collection).updateMany(findThis, {$set: updateToThis}, function(err, res) {
-      if(err) throw err;
-      console.log(res.result.nModified + " document(s) updated");
-    });
+    connection
+      .collection(collection)
+      .updateMany(findThis, { $set: updateToThis }, function(err, res) {
+        if (err) throw err;
+        console.log(res.result.nModified + ' document(s) updated');
+      });
   });
 };
 
@@ -58,8 +69,8 @@ const findAndUpdateMany = (collection, findThis, updateToThis) => {
 const findAndDelete = (collection, findThis) => {
   getConnection((connection) => {
     connection.collection(collection).deleteOne(findThis, function(err, res) {
-      if(err) throw err;
-      console.log("1 document deleted");
+      if (err) throw err;
+      console.log('1 document deleted');
     });
   });
 };
@@ -69,57 +80,56 @@ const findAndDelete = (collection, findThis) => {
 const findAndDeleteMany = (collection, findThis) => {
   getConnection((connection) => {
     connection.collection(collection).deleteMany(findThis, function(err, res) {
-      if(err) throw err;
-      console.log(res.result.n + " document(s) deleted");
+      if (err) throw err;
+      console.log(res.result.n + ' document(s) deleted');
     });
   });
 };
-
-
-//creating an app here as a microservice
-const app = express();
-app.use(bodyParser.json());
-
-const PORT = 7300;
-
-const responseTemplate = require('./templates/ResponseTemplate');
 
 //get location information
 // A query parameter is expected,?format=json | jsonp | xml | csv | yaml
 app.get('/weather/search', (req, res) => {
   const noQueryParams = Object.keys(req.query).length === 0;
   const noQueryParamsMsg = 'Invalid request: no query parameters';
-  const unsupportedParametersMsg = 'Invalid request: supported query parameters include \'?lattlong=\''
+  const unsupportedParametersMsg =
+    "Invalid request: supported query parameters include '?lattlong='";
 
   //conditional check to verify that a supported parameter was included and not empty
-  if(req.query.lattlong === undefined) {
+  if (req.query.lattlong === undefined) {
     responseTemplate.response = unsupportedParametersMsg;
-    res.status(400).json(responseTemplate)
-  }
-  else {
+    res.status(400).json(responseTemplate);
+  } else {
     //get woeid from API in order to make second request
-    axios.get('http://metaweather.com/api/location/search/?lattlong=' + req.query.lattlong)
-      .then((res) => {
-          console.log('latt long response: ' + res.data[0].woeid);
-          console.log('request woeid: ', res.data[0].woeid);
-          return axios.get('http://metaweather.com/api/location/' + res.data[0].woeid)
-        }
+    axios
+      .get(
+        'http://metaweather.com/api/location/search/?lattlong=' +
+          req.query.lattlong
       )
+      .then((res) => {
+        console.log('latt long response: ' + res.data[0].woeid);
+        console.log('request woeid: ', res.data[0].woeid);
+        return axios.get(
+          'http://metaweather.com/api/location/' + res.data[0].woeid
+        );
+      })
       .then((networkResponse) => {
         responseTemplate.data = moment().format('YYYY-MM-DDThh:mm:ss.SSSZ');
         responseTemplate.description =
-          'This endpoint provides weather information based on your lattitude and longitude. '
-          + 'The required query parameter is \'lattlong '
-          + 'Example of use: ?lattlong=37.553800,-122.270000';
+          'This endpoint provides weather information based on your lattitude and longitude. ' +
+          "The required query parameter is 'lattlong " +
+          'Example of use: ?lattlong=37.553800,-122.270000';
         responseTemplate.params = req.query;
 
-        responseTemplate.response = noQueryParams ? noQueryParamsMsg : networkResponse.data;
+        responseTemplate.response = noQueryParams
+          ? noQueryParamsMsg
+          : networkResponse.data;
 
-        noQueryParams ? res.status(400).json(responseTemplate) : res.json(responseTemplate);
-
+        noQueryParams
+          ? res.status(400).json(responseTemplate)
+          : res.json(responseTemplate);
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
         throw new Error();
         res.send('location request failed ' + err);
       });
@@ -130,31 +140,36 @@ app.get('/weather', (req, res) => {
   const noQueryParams = Object.keys(req.query).length === 0;
   const noQueryParamsMsg = 'Invalid request: no query parameters';
   console.log('api reached', req.query);
-  addToDatabase('searches', {searchCity: req.query});
-  return axios.get('http://metaweather.com/api/location/search/?query=' + req.query.city)
+  addToDatabase('searches', { searchCity: req.query });
+  return axios
+    .get('http://metaweather.com/api/location/search/?query=' + req.query.city)
     .then((res) => {
       console.log('city search response: ' + res.data[0].woeid);
-      return axios.get('http://metaweather.com/api/location/' + res.data[0].woeid)
+      return axios.get(
+        'http://metaweather.com/api/location/' + res.data[0].woeid
+      );
     })
     .then((networkResponse) => {
       responseTemplate.data = moment().format('YYYY-MM-DDThh:mm:ss.SSSZ');
       responseTemplate.description =
-        'This endpoint provides weather information based on your City. '
-        + 'The required query parameter is \'city '
-        + 'Example of use: ?city=london';
+        'This endpoint provides weather information based on your City. ' +
+        "The required query parameter is 'city " +
+        'Example of use: ?city=london';
       responseTemplate.params = req.query;
 
-      responseTemplate.response = noQueryParams ? noQueryParamsMsg : networkResponse.data;
+      responseTemplate.response = noQueryParams
+        ? noQueryParamsMsg
+        : networkResponse.data;
 
-      noQueryParams ? res.status(400).json(responseTemplate) : res.json(responseTemplate);
-
+      noQueryParams
+        ? res.status(400).json(responseTemplate)
+        : res.json(responseTemplate);
     })
     .catch((err) => {
       console.log(err);
       throw new Error();
       res.send('location request failed ' + err);
     });
-
 });
 
 app.listen(PORT, () => {
