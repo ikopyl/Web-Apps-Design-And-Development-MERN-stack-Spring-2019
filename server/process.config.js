@@ -26,9 +26,18 @@ module.exports = {
       watch: true
     },
     {
+      name: 'messenger', 
+      script: './microservices/messanger.js',
+      watch: true
+    },
+    {
+      name: 'websocket', 
+      script: './microservices/websocket.js',
+      watch: true
+    },
+    {
       name: 'userauth',
       script: './microservices/user.js',
-      watch: true
     }
   ]
 };

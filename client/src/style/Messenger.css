@@ -1,0 +1,7 @@
+.message-area {
+    height: 200px;
+    padding: 20px;
+    background: #e8e8e8;
+    overflow-y: scroll;
+    width: 400px;
+  }
