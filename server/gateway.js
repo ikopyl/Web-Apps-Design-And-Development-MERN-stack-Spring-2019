@@ -11,9 +11,15 @@ apiProxy.on('error', (err, req, res) => {
   res.status(500).send('Proxy is down...');
 });
 
+appServer.on('upgrade', (req, socket, head) => {
+  console.log('upgrade ws here');
+  console.log(req);
+  wsProxy.ws(req, socket, head);
+});
+
 const wsProxy = httpProxy.createProxyServer({
   target: 'http://localhost:6000',
-  ws: true,
+  ws: true
 });
 
 app.all('/search*', (req, res) => {
@@ -43,11 +49,6 @@ app.all('/websocket*', (req, res) => {
 
 app.all('/user*', (req, res) => {
   apiProxy.web(req, res, { target: 'http://localhost:8000/' });
-
-appServer.on('upgrade', (req, socket, head) => {
-  console.log('upgrade ws here');
-  console.log(req);
-  wsProxy.ws(req, socket, head);
 });
 
 const PORT = process.env.GATEWAY_PORT || 5000;
