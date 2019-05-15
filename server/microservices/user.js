@@ -16,6 +16,7 @@ server.listen(config.USER_PORT, () => {
   mongoose.connect(`${config.MONGODB_URI}`, {
     useNewUrlParser: true,
     useFindAndModify: false,
+    useCreateIndex: true
   });
 });
 
