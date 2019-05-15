@@ -34,6 +34,10 @@ module.exports = {
       name: 'websocket', 
       script: './microservices/websocket.js',
       watch: true
+    },
+    {
+      name: 'userauth',
+      script: './microservices/user.js',
     }
   ]
 };

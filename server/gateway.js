@@ -41,6 +41,9 @@ app.all('/websocket*', (req, res) => {
   apiProxy.web(req, res, { target: 'http://localhost:6000/websocket' });
 });
 
+app.all('/user*', (req, res) => {
+  apiProxy.web(req, res, { target: 'http://localhost:8000/' });
+
 appServer.on('upgrade', (req, socket, head) => {
   console.log('upgrade ws here');
   console.log(req);

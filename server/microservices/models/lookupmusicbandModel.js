@@ -70,7 +70,12 @@ SearchResultSchema.plugin(uniqueValidator);
 
 SearchResultSchema.index({ search_query: 1, type: -1 }, { unique: true });
 
+/**  creating musicalbums collection and leveraging MusicAlbumSchema for it */
+const MusicAlbum = mongoose.model('musicalbums', MusicAlbumSchema);
+/**  creating searchresults collection and leveraging SearchResultsSchema for it */
+const SearchResult = mongoose.model('searchresults', SearchResultSchema);
+
 module.exports = {
-  MusicAlbumSchema,
-  SearchResultSchema
+  MusicAlbum,
+  SearchResult
 };

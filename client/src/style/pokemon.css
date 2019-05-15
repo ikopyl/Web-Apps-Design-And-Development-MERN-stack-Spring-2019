@@ -1,0 +1,72 @@
+.navbar {
+    background-color: rgba(0, 0, 0, 0.877);
+    display: flex;
+    justify-content: space-between; }
+  
+  .navlist {
+    margin: 0;
+    padding: 5px;
+    list-style-type: none;
+    display: flex; }
+  
+  .navlist li {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer; }
+  
+  .pokemon-tab {
+    font-size: 1.3rem;
+    font-family: 'lato', sans-serif;
+    color: #f0f0f0;
+    text-decoration: none;
+    padding: 1rem; }
+  
+  .searchbar {
+    text-align: center;
+    background-color: #f00000c4;
+    padding-top: 10rem;
+    padding-bottom: 8rem;
+    background-size: cover; }
+  
+  .searchbar input {
+    font-size: 1.3rem;
+    font-family: 'lato', sans-serif;
+    width: 30rem;
+    border: none;
+    padding: .7rem;
+    outline-color: #f2cb05;
+    border-radius: 2px;
+    background-color: rgba(20, 25, 34, 0.5);
+    color: #f0f0f0; }
+  
+  .pokemon-grid {
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; }
+  
+  .poke-card {
+    font-family: 'lato', sans-serif;
+    text-transform: uppercase;
+    background-color: #f0f0f0;
+    width: 10rem;
+    height: 10rem;
+    margin: 1.6rem;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center; }
+  
+  .poke-card p {
+    text-align: center; }
+  
+  .pokemon-pic {
+    height: 96px;
+    width: 96px; }
+  
+  body {
+    margin: 0;
+    padding: 0; }
+  
