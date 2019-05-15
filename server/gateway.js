@@ -11,12 +11,6 @@ apiProxy.on('error', (err, req, res) => {
   res.status(500).send('Proxy is down...');
 });
 
-appServer.on('upgrade', (req, socket, head) => {
-  console.log('upgrade ws here');
-  console.log(req);
-  wsProxy.ws(req, socket, head);
-});
-
 const wsProxy = httpProxy.createProxyServer({
   target: 'http://localhost:6000',
   ws: true
@@ -53,4 +47,11 @@ app.all('/user*', (req, res) => {
 
 const PORT = process.env.GATEWAY_PORT || 5000;
 
+appServer.on('upgrade', (req, socket, head) => {
+  console.log('upgrade ws here');
+  console.log(req);
+  wsProxy.ws(req, socket, head);
+});
+
 app.listen(PORT, () => console.log(`Gateway started on port ${PORT}`));
+// appServer.listen(PORT);
