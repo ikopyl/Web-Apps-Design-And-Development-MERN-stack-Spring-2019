@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
-const webSocket = new WebSocket('ws://localhost:4000/websocket');
+const webSocket = new WebSocket('ws://localhost:5000/websocket');
 
 webSocket.onmessage = (message) => {
     store.dispatch(insertMessage(message.data));

@@ -60,6 +60,8 @@ class App extends Component {
             <Route path="/breweries" component={Breweries} />
 
             <Route path="/weather" component={WeatherData} />
+
+            <Route path="/messenger" component={Messenger} />
           </div>
         </BrowserRouter>
         <button onClick={this.addApp}>Add an App</button>
