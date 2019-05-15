@@ -56,9 +56,10 @@ app.get('/', (req, res) => {
     'This endpoint queries iTunes API and returns music metadata. </br>' +
     'Examples of supported APIs: </br>' +
     '/lookupmusicband/search?name=the beatles </br>' +
-    '/lookupmusicband/search_results </br>' +
+    '/lookupmusicband/search_results</br>' +
+    '/lookupmusicband/search_result?name=the beatles </br>' +
+    '/lookupmusicband/search_result/{search_result_id} </br>' +
     '/lookupmusicband/search_results/{search_result_id} </br>' +
-    '/lookupmusicband/search_results/{search_result_id}/{record_id}';
   res.end(response);
 });
 
