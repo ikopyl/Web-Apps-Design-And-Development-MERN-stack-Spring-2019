@@ -4,6 +4,7 @@ const config = require('./config/config');
 const rjwt = require('restify-jwt-community');
 
 const server = restify.createServer();
+const PORT = config.USER_PORT;
 
 // Middleware
 server.use(restify.plugins.bodyParser());
@@ -11,7 +12,7 @@ server.use(restify.plugins.bodyParser());
 // Protect Routes
 // server.use(rjwt({ secret: config.JWT_SECRET }).unless({ path: ['/auth'] }));
 
-server.listen(config.USER_PORT, () => {
+server.listen(PORT, () => {
   mongoose.Promise = global.Promise;
   mongoose.connect(`${config.MONGODB_URI}`, {
     useNewUrlParser: true,
@@ -24,7 +25,7 @@ const db = mongoose.connection;
 
 db.once('open', () => {
   require('./routes/userRoutes')(server);
-  console.log(`Server started on port ${config.USER_PORT}`);
+  console.log(`Microservice user started on port ${PORT}`);
 });
 
 db.on('connected', () => {
