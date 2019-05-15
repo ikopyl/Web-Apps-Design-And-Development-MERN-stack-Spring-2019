@@ -32,9 +32,9 @@ const routes = (app) => {
   app
     .route('/search_results')
     .get((req, res, next) => {
-    logRequest(req);
-    next();
-  }, getSearchResults);
+      logRequest(req);
+      next();
+    }, getSearchResults);
 
   app
     .route('/search_results/:search_result_id')
