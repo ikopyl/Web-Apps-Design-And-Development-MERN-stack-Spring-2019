@@ -27,6 +27,10 @@ app.all('/breweries*', (req, res) => {
   apiProxy.web(req, res, { target: 'http://localhost:7400/' });
 });
 
+app.all('/user*', (req, res) => {
+  apiProxy.web(req, res, { target: 'http://localhost:7500/' });
+});
+
 const PORT = process.env.GATEWAY_PORT || 5000;
 
 app.listen(PORT, () => console.log(`Gateway started on port ${PORT}`));

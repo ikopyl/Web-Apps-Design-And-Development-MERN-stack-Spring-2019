@@ -2,20 +2,13 @@ const axios = require('axios');
 const moment = require('moment');
 const responseTemplate = require('../templates/ResponseTemplate');
 
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 
 const {
-  MusicAlbumSchema,
-  SearchResultSchema
+  MusicAlbum,
+  SearchResult
 } = require('../models/lookupmusicbandModel');
 
-/* Pre-requisite: MongoDB needs to be up and running!!! */
-/* Note: the collection name defaults to a pluralization of the Mongoose model name */
-
-/**  creating MusicAlbum collection and leveraging MusicAlbumSchema for it */
-const MusicAlbum = mongoose.model('MusicAlbums', MusicAlbumSchema);
-/**  creating SearchResults collection and leveraging SearchResultsSchema for it */
-const SearchResult = mongoose.model('SearchResults', SearchResultSchema);
 
 /* enums, to select the album covers image resulution.
 The returned urls to album covers have resolution 100x100,
