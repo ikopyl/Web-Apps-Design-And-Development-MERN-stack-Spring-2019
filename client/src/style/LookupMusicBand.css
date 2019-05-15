@@ -2,3 +2,8 @@ img:hover {
   opacity: 0.4;
   background: #aaa;
 }
+
+.flex-container {
+  display: flex;
+  flex-wrap: nowrap
+}
