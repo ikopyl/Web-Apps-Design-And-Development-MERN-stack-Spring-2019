@@ -11,7 +11,7 @@ apiProxy.on('error', (err, req, res) => {
   res.status(500).send('Proxy is down...');
 });
 
-app.all('/lookupmusicband*', (req, res) => {
+app.all('/search*', (req, res) => {
   apiProxy.web(req, res, { target: 'http://localhost:7100/' });
 });
 
