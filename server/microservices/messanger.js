@@ -9,7 +9,7 @@ const mongoClient = new MongoClient(url);
 
 mongoClient.connect((err) => {
     if (err) console.log(err);
-    const db = mongoClient.db('messages');
+    const db = mongoClient.db('test101');
 
     //move app logic in here
     const app = express();
