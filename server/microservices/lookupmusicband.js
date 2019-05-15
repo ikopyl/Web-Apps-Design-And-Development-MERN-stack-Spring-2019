@@ -12,7 +12,7 @@ const PORT = process.env.LOOKUPMUSICBAND_PORT || 7100;
 
 const DB_URL =
   process.env.LOOKUPMUSICBAND_DB_URL || 'mongodb://localhost:27017';
-const DB_NAME = process.env.LOOKUPMUSICBAND_DB_NAME || 'lookupMusicBand';
+const DB_NAME = process.env.LOOKUPMUSICBAND_DB_NAME || 'finalProject';
 
 mongoose.Promise = global.Promise;
 mongoose.connect(`${DB_URL}/${DB_NAME}`, {
