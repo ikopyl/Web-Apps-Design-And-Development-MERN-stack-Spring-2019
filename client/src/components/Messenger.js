@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { updateMessages, handlTextChange, submitMessage } from '../redux/actions/messageActions';
+import {
+  updateMessages,
+  handlTextChange,
+  submitMessage
+} from '../redux/actions/messageActions';
 import '../style/Messenger.css';
 
-const Message = ({ data }) => (<div>{data}</div>);
+const Message = ({ data }) => <div>{data}</div>;
 
 class Messenger extends Component {
   componentDidMount() {
-    axios.get('/messanger/getMessages')
+    axios
+      .get('/messanger/getMessages')
       .then((res) => {
         this.props.updateMessages(res.data);
       })
@@ -17,25 +22,39 @@ class Messenger extends Component {
       });
   }
 
-  onSubmit = () => {
+  onSubmit = (e) => {
+    e.preventDefault();
+
     this.props.submitMessage();
+  };
+
+  onChange = (e) => {
+    this.props.insertMessage();
   }
 
   handleTextChange = (e) => {
     this.props.handlTextChange(e.target.value);
-  }
+  };
 
   render() {
     return (
-      <div className="App">
+      <div className="Messenger">
         <div>
           <div className="message-area">
-            {this.props.messages.map((message, i) => <Message key={i} data={message} />)}
+            {this.props.messages.map((message, i) => (
+              <Message key={i} data={message} />
+            ))}
           </div>
         </div>
+
         <div>
-          <input type="text" value={this.props.text} onChange={this.handleTextChange} />
+          <input
+            type="text"
+            value={this.props.text}
+            onChange={this.handleTextChange}
+          />
         </div>
+
         <div>
           <button onClick={this.onSubmit}>Submit</button>
         </div>
@@ -47,13 +66,18 @@ class Messenger extends Component {
 const mapStateToProps = (state) => {
   return {
     messages: state.messageReducer.messages,
-    text: state.messageReducer.text,
+    text: state.messageReducer.text
   };
 };
 
-const mapDispatchToProps = { updateMessages, handlTextChange, submitMessage };
+const mapDispatchToProps = {
+  updateMessages,
+  handlTextChange,
+  submitMessage
+};
 
-export default connect( // from react-redux
+export default connect(
+  // from react-redux
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(Messenger);

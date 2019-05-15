@@ -4,4 +4,6 @@
     background: #e8e8e8;
     overflow-y: scroll;
     width: 400px;
+    /* display: flex; */
+    /* flex: 10; */
   }

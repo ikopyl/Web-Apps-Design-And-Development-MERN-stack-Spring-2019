@@ -19,5 +19,7 @@ module.exports = {
   DB_NAME: process.env.DB_NAME || 'finalProject',
   MONGODB_URI: process.env.MONGODB_URI || 'mongodb://localhost:27017/finalProject',
 
+  DB_MESSANGER_COLLECTION_NAME: process.env.DB_MESSANGER_COLLECTION_NAME || 'messages',
+
   JWT_SECRET: process.env.JWT_SECRET || 'w#7fluDS7pv2JsRPE1IeEQH$hiaRtaXE'
 };
