@@ -62,5 +62,5 @@ appServer.on('upgrade', (req, socket, head) => {
   wsProxy.ws(req, socket, head);
 });
 
-app.listen(PORT, () => console.log(`Gateway started on port ${PORT}`));
-// appServer.listen(PORT);
+// app.listen(PORT, () => console.log(`Gateway started on port ${PORT}`));
+appServer.listen(PORT);

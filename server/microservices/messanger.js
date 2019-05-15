@@ -8,6 +8,7 @@ const config = require('../config');
 const PORT = config.MESSANGER_PORT; // 7500
 const DB_URL = config.DB_URL; // mongodb://localhost:27017
 const DB_NAME = config.DB_NAME; // finalProject
+const DB_MESSANGER_COLLECTION_NAME = config.DB_MESSANGER_COLLECTION_NAME;     // messages collection
 
 //move app logic in here
 const app = express();
@@ -22,7 +23,7 @@ mongoClient.connect((err) => {
   const db = mongoClient.db(DB_NAME);
 
   app.get('/messanger/getMessages', (req, res) => {
-    db.collection('messages')
+    db.collection(DB_MESSANGER_COLLECTION_NAME)
       .find({})
       .toArray()
       .then((result) => {
@@ -33,7 +34,7 @@ mongoClient.connect((err) => {
 
   app.post('/messanger/postMessage', (req, res) => {
     console.log(req.body);
-    db.collection('test')
+    db.collection(DB_MESSANGER_COLLECTION_NAME)
       .insertOne({ data: req.body.message })
       .then(() => console.log('db instert worked'))
       .catch((e) => console.log(e));
