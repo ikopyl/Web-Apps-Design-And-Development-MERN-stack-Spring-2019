@@ -2,7 +2,10 @@ const WebSocket = require('ws');
 const redis = require('redis');
 const client = redis.createClient();
 
-const wss = new WebSocket.Server({ port: 6000 });
+const config = require('../config');
+const PORT = config.WEBSOCKET_PORT;     // 6000
+
+const wss = new WebSocket.Server({ port: PORT });
 
 wss.on('connection', (ws) => {
   console.log('someone has connected');

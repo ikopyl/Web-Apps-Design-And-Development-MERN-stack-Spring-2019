@@ -4,21 +4,25 @@ const { MongoClient } = require('mongodb');
 const redis = require('redis');
 const client = redis.createClient();
 
-const url = 'mongodb://localhost:27017';
-const mongoClient = new MongoClient(url);
+const config = require('../config');
+const PORT = config.MESSANGER_PORT; // 7500
+const DB_URL = config.DB_URL; // mongodb://localhost:27017
+const DB_NAME = config.DB_NAME; // finalProject
 
-const PORT = 7500;
+//move app logic in here
+const app = express();
+app.use(bodyParser.json());
+
+const mongoClient = new MongoClient(DB_URL, {
+  useNewUrlParser: true
+});
 
 mongoClient.connect((err) => {
   if (err) console.log(err);
-  const db = mongoClient.db('test101');
-
-  //move app logic in here
-  const app = express();
-  app.use(bodyParser.json());
+  const db = mongoClient.db(DB_NAME);
 
   app.get('/messanger/getMessages', (req, res) => {
-    db.collection('test')
+    db.collection('messages')
       .find({})
       .toArray()
       .then((result) => {

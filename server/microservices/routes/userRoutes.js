@@ -4,7 +4,9 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/userModel');
 const auth = require('../auth');
-const config = require('../config/config');
+const config = require('../../config');
+
+const JWT_SECRET = config.JWT_SECRET;
 
 module.exports = (server) => {
   // Register User
@@ -41,7 +43,7 @@ module.exports = (server) => {
       const user = await auth.authenticate(email, password);
 
       // Create JWT
-      const token = jwt.sign(user.toJSON(), config.JWT_SECRET, {
+      const token = jwt.sign(user.toJSON(), JWT_SECRET, {
         expiresIn: '15m'
       });
 

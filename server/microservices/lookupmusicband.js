@@ -4,12 +4,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const config = require('./config/config');
+const config = require('../config');
 
 const routes = require('./routes/lookupmusicbandRoutes');
 
 const app = express();
-const PORT = config.LOOKUPMUSICBAND_PORT;
+const PORT = config.LOOKUPMUSICBAND_PORT;     // 7100
+const MONGODB_URI = config.MONGODB_URI;       // mongodb://localhost:27017/finalProject
 
 // const DB_URL =
 //   process.env.LOOKUPMUSICBAND_DB_URL || 'mongodb://localhost:27017';
@@ -17,7 +18,7 @@ const PORT = config.LOOKUPMUSICBAND_PORT;
 
 app.listen(PORT, () => {
   mongoose.Promise = global.Promise;
-  mongoose.connect(`${config.MONGODB_URI}`, {
+  mongoose.connect(`${MONGODB_URI}`, {
     useNewUrlParser: true,
     useFindAndModify: false,
     useCreateIndex: true
@@ -31,7 +32,7 @@ db.once('open', () => {
 });
 
 db.on('connected', () => {
-  console.log(`Mongoose connection was established on ${config.MONGODB_URI}`);
+  console.log(`Mongoose connection was established on ${MONGODB_URI}`);
 });
 
 db.on('error', (err) => {
@@ -40,7 +41,7 @@ db.on('error', (err) => {
 
 db.on('disconnected', () => {
   console.log(
-    `Mongoose connection on ${config.MONGODB_URI} has been disconnected`
+    `Mongoose connection on ${MONGODB_URI} has been disconnected`
   );
 });
 

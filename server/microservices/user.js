@@ -1,10 +1,11 @@
 const restify = require('restify');
 const mongoose = require('mongoose');
-const config = require('./config/config');
+const config = require('../config');
 const rjwt = require('restify-jwt-community');
 
 const server = restify.createServer();
 const PORT = config.USER_PORT;
+const MONGODB_URI = config.MONGODB_URI;
 
 // Middleware
 server.use(restify.plugins.bodyParser());
@@ -14,7 +15,7 @@ server.use(restify.plugins.bodyParser());
 
 server.listen(PORT, () => {
   mongoose.Promise = global.Promise;
-  mongoose.connect(`${config.MONGODB_URI}`, {
+  mongoose.connect(`${MONGODB_URI}`, {
     useNewUrlParser: true,
     useFindAndModify: false,
     useCreateIndex: true
@@ -29,7 +30,7 @@ db.once('open', () => {
 });
 
 db.on('connected', () => {
-  console.log(`Mongoose connection was established on ${config.MONGODB_URI}`);
+  console.log(`Mongoose connection was established on ${MONGODB_URI}`);
 });
 
 db.on('error', (err) => {
@@ -38,7 +39,7 @@ db.on('error', (err) => {
 
 db.on('disconnected', () => {
   console.log(
-    `Mongoose connection on ${config.MONGODB_URI} has been disconnected`
+    `Mongoose connection on ${MONGODB_URI} has been disconnected`
   );
 });
 
