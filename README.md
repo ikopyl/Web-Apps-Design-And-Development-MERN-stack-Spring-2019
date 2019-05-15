@@ -17,17 +17,16 @@ cd ./client & npm install
 cd ..
 ```
 
+### Pre-requisites for back-end:
+
+* have MongoDB up and running. If it was installed via homebrew, you could just run `mongod` in the terminal. If you feel fancy, you could instead run `brew services run mongodb`
+
+
 #### To start the back-end
 
 ```bash
 cd ./server && pm2 start process.config.js
 ```
-
-#### [TEMP] To start the deprecated monolithic back-end
-```bash
-cd ./server && node __deprecated__app.js
-```
-
 
 #### To start the front-end
 
