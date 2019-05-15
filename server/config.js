@@ -1,6 +1,19 @@
 module.exports = {
   ENV: process.env.NODE_ENV || 'development',
 
+  REDIS_HOST: process.env.REDIS_HOST || 'localhost',
+
+  FRONT_END_HOST: process.env.FRONT_END_HOST || 'http://localhost:3000',
+
+  WEBSOCKET_HOST: process.env.WEBSOCKET_HOST || 'http://localhost:6000/websocket',
+  LOOKUPMUSICBAND_HOST: process.env.LOOKUPMUSICBAND_HOST || 'http://localhost:7100',
+  LOCATION_HOST: process.env.LOCATION_HOST || 'http://localhost:7200',
+  WEATHER_HOST: process.env.WEATHER_HOST || 'http://localhost:7300',
+  BREWERIES_HOST: process.env.BREWERIES_HOST || 'http://localhost:7400',
+  MESSANGER_HOST: process.env.MESSANGER_HOST || 'http://localhost:7500',
+  USER_HOST: process.env.USER_HOST || 'http://localhost:8000',
+
+
   GATEWAY_PORT: process.env.GATEWAY_PORT || 5000,
 
   WEBSOCKET_PORT: process.env.WEBSOCKET_PORT || 6000,

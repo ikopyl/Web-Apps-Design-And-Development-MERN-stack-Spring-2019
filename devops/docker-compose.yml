@@ -1,0 +1,95 @@
+version: '3.7'
+services:
+  redis:
+    image : redis:5.0.4
+    ports:
+      - "6379:6379"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - webnet
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - webnet
+  gateway:
+    image: ikopyl/gateway
+    ports:
+      - "5000:5000"
+    deploy:
+      replicas: 1
+    networks:
+      - webnet
+    environment:
+      - GATEWAY_PORT=5000
+      - WEBSOCKET_PORT=6000
+      - LOOKUPMUSICBAND_PORT=7100
+      - LOCATION_PORT=7200
+      - WEATHER_PORT=7300
+      - BREWERIES_PORT=7400
+      - MESSANGER_PORT=7500
+      - USER_PORT=8000
+      - FRONT_END_HOST=http://frontend:3000
+      - WEBSOCKET_HOST=http://websocket:6000/websocket
+      - LOOKUPMUSICBAND_HOST=http://lookupmusicband:7100
+      - LOCATION_HOST=http://location:7200
+      - WEATHER_HOST=http://weather:7300
+      - BREWERIES_HOST=http://breweries:7400
+      - MESSANGER_HOST=http://messanger:7500
+      - USER_HOST=http://user:8000
+  frontend:
+    image : ikopyl/react-frontend
+    ports:
+      - "3000:3000"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+  websocket:
+    image : ikopyl/websocket-app
+    depends_on:
+      - redis
+    ports:
+      - "6000:6000"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+    environment:
+      - REDIS_HOST=redis
+      - WEBSOCKET_PORT=6000
+  lookupmusicband:
+    image:
+  location:
+    image:
+  weather:
+    image:
+  breweries:
+    image:
+  messanger:
+    image : bparra/messanger-demo
+    depends_on:
+      - redis
+      - mongodb
+    ports:
+      - "5000:5000"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+    environment:
+      - REDIS_HOST=redis
+      - MONGO_HOST=mongodb://mongodb:27017
+  user:
+    image:
+networks:
+  webnet:
