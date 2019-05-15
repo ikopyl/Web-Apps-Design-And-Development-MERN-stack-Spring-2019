@@ -8,6 +8,7 @@ import Home from './components/Home';
 import LookupMusicBand from './components/LookupMusicBand';
 import Breweries from './components/Breweries';
 import WeatherData from './components/WeatherData';
+import Pokedex from './components/Pokedex';
 // import TileTypes from './components/TileTypes'
 
 import './style/App.css';
@@ -59,6 +60,8 @@ class App extends Component {
             <Route path="/breweries" component={Breweries} />
 
             <Route path="/weather" component={WeatherData} />
+
+            <Route path="/pokedex" component={Pokedex} />
           </div>
         </BrowserRouter>
         <button onClick={this.addApp}>Add an App</button>
