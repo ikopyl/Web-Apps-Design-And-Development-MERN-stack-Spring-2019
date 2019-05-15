@@ -7,6 +7,8 @@ const client = redis.createClient();
 const url = 'mongodb://localhost:27017';
 const mongoClient = new MongoClient(url);
 
+const PORT = 7500;
+
 mongoClient.connect((err) => {
     if (err) console.log(err);
     const db = mongoClient.db('test101');
@@ -32,6 +34,8 @@ mongoClient.connect((err) => {
         res.send('ok');
     });
     
-    app.listen(7500);
+    app.listen(PORT, () => {
+      console.log(`Microservice messenger is listening on port ${PORT}`);
+    });
     //end app logic
 })
