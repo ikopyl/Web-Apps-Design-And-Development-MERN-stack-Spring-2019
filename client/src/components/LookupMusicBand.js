@@ -3,22 +3,20 @@ import ReactTooltip from 'react-tooltip';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { searchAlbums } from '../redux/actions/lookupMusicBandActions';
+import {
+  searchAlbums,
+  saveToDB,
+  loadFromDB,
+  checkIfBandInDB,
+  updateSearchString
+} from '../redux/actions/lookupMusicBandActions';
 
 import '../style/LookupMusicBand.css';
 
 class LookupMusicBand extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      bandName: '',
-      albums: ''
-    };
-  }
-
   renderImage = (imageUrl, description, index) => {
     const moreInfoUrl = `http://www.google.com/search?q=${description +
-      ' wiki'}&btnI`;
+      ' album wiki'}&btnI`;
     return (
       <div style={flexContainerStyle} key={index}>
         <a href={moreInfoUrl} target="_blank" rel="noopener noreferrer">
@@ -29,44 +27,68 @@ class LookupMusicBand extends Component {
     );
   };
 
-  onSubmit = e => {
+  onSubmit = (propFunc) => (e) => {
     e.preventDefault();
-
-    console.log('this.props.bandName:');
-    console.log(this.state.bandName);
-    this.props.searchAlbums(this.state.bandName);
-
-    this.setState({
-      bandName: ''
-    });
-
+    propFunc();
+    this.props.updateSearchString('');
   };
 
-  onChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value // setting the bandname to whatever we type in
-    });
+  onChange = (propFunc) => (e) => {
+    this.props.updateSearchString(e.target.value);
+    propFunc();
   };
 
   render() {
     const musicAlbums = (
-      <div>
-        <form onSubmit={this.onSubmit} style={{ display: 'flex' }}>
+      <div className={{ display: 'flex', flexWrap: 'nowrap' }}>
+        <form
+          onSubmit={this.onSubmit(this.props.searchAlbums)}
+          style={{ display: 'flex' }}
+        >
           <input
             type="text"
             name="bandName"
             style={{ flex: '10', padding: '5px' }}
             placeholder="Please enter a band name..."
-            value={this.state.bandName}
-            onChange={this.onChange}
+            onChange={this.onChange(this.props.checkIfBandInDB)}
+            value={this.props.searchString}
           />
           <input
             type="submit"
-            value="Submit"
+            value="Search iTunes API"
             className="btn"
             style={{ flex: '1' }}
           />
         </form>
+
+        {!this.props.btnSaveToDBHidden && (
+          <form
+            onSubmit={this.onSubmit(this.props.saveToDB)}
+            style={{ display: 'flex' }}
+          >
+            <input
+              type="submit"
+              value="Save to DB"
+              className="btn"
+              style={{ flex: '1', padding: '5px' }}
+            />
+          </form>
+        )}
+
+        {!this.props.btnLoadFromDBHidden && (
+          <form
+            onSubmit={this.onSubmit(this.props.loadFromDB)}
+            style={{ display: 'flex' }}
+          >
+            <input
+              type="submit"
+              value="Load from DB"
+              className="btn"
+              style={{ flex: '1', padding: '5px' }}
+            />
+          </form>
+        )}
+
         <div style={flexContainerStyle} rendered={this.props.albums}>
           {this.props.albums &&
             this.props.albums.map((album, index) =>
@@ -86,19 +108,38 @@ const flexContainerStyle = {
 
 LookupMusicBand.propTypes = {
   searchAlbums: PropTypes.func.isRequired,
+  saveToDB: PropTypes.func.isRequired,
+  loadFromDB: PropTypes.func.isRequired,
+  checkIfBandInDB: PropTypes.func.isRequired,
+  updateSearchString: PropTypes.func.isRequired,
+
   bandName: PropTypes.string.isRequired,
-  albums: PropTypes.array.isRequired
+  searchString: PropTypes.string.isRequired,
+  albums: PropTypes.array.isRequired,
+  savedInDB: PropTypes.bool.isRequired,
+  savedRecordId: PropTypes.string.isRequired,
+  btnSaveToDBHidden: PropTypes.bool.isRequired,
+  btnLoadFromDBHidden: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = state => ({
-  // musicSearch - the label of lookupMusicBandReducer, 
+const mapStateToProps = (state) => ({
+  // musicSearch - the label of lookupMusicBandReducer,
   // specified under ./client/src/redux/reducers/index.js
   bandName: state.musicSearch.bandName,
-  albums: state.musicSearch.albums
+  searchString: state.musicSearch.searchString,
+  albums: state.musicSearch.albums,
+  savedInDB: state.musicSearch.savedInDB,
+  savedRecordId: state.musicSearch.savedRecordId,
+  btnSaveToDBHidden: state.musicSearch.btnSaveToDBHidden,
+  btnLoadFromDBHidden: state.musicSearch.btnLoadFromDBHidden
 });
 
 const mapDispatchToProps = {
   searchAlbums,
+  saveToDB,
+  loadFromDB,
+  checkIfBandInDB,
+  updateSearchString
 };
 
 export default connect(
