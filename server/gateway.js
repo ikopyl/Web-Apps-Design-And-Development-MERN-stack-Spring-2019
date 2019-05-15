@@ -11,7 +11,7 @@ apiProxy.on('error', (err, req, res) => {
   res.status(500).send('Proxy is down...');
 });
 
-app.all('/lookupmusicband*', (req, res) => {
+app.all('/search*', (req, res) => {
   apiProxy.web(req, res, { target: 'http://localhost:7100/' });
 });
 
@@ -25,10 +25,6 @@ app.all('/weather*', (req, res) => {
 
 app.all('/breweries*', (req, res) => {
   apiProxy.web(req, res, { target: 'http://localhost:7400/' });
-});
-
-app.all('/movie*', (req, res) => {
-  apiProxy.web(req, res, { target: 'http://localhost:7500/' });
 });
 
 const PORT = 5000;

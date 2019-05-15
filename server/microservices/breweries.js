@@ -2,7 +2,7 @@ const express = require('express');
 const moment = require('moment');
 const axios = require('axios');
 const bodyParser = require('body-parser');
-const responseTemplate = require('../ResponseTemplate');
+const responseTemplate = require('./templates/ResponseTemplate');
 const {MongoClient} = require('mongodb');
 
 //mongodb url & database name

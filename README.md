@@ -11,9 +11,9 @@
 To download npm-dependencies for both front-end & back-end:
 
 ```bash
-cd ./server && npm ci
+cd ./server && npm install
 cd ..
-cd ./client & npm ci
+cd ./client & npm install
 cd ..
 ```
 

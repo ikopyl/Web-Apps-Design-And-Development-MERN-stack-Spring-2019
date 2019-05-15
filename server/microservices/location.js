@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 
 const PORT = 7200;
 
-const responseTemplate = require('../ResponseTemplate');
+const responseTemplate = require('./templates/ResponseTemplate');
 
 //get location information
 // A query parameter is expected,?format=json | jsonp | xml | csv | yaml
