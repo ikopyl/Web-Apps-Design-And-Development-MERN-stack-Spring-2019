@@ -4,6 +4,7 @@ import PokeSearchBar from './components/layout/PokeSearchBar';
 import PokemonGrid from './components/layout/PokemonGrid';
 import PokemonPage from './components/layout/PokemonPage';
 import {Route} from 'react-router-dom'
+import '../style/pokemon.css'
 
 class Pokedex extends Component {
     render(){
