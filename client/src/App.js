@@ -8,6 +8,7 @@ import Home from './components/Home';
 import LookupMusicBand from './components/LookupMusicBand';
 import Breweries from './components/Breweries';
 import WeatherData from './components/WeatherData';
+import Messenger from './components/Messenger'
 // import TileTypes from './components/TileTypes'
 
 import './style/App.css';
