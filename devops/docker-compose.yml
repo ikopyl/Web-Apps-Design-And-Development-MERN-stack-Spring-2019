@@ -1,0 +1,167 @@
+version: '3.7'
+services:
+  redis:
+    image : redis:5.0.4
+    ports:
+      - "6379:6379"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - webnet
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - webnet
+  gateway:
+    image: ikopyl/gateway
+    ports:
+      - "5000:5000"
+    deploy:
+      replicas: 1
+    networks:
+      - webnet
+    environment:
+      - GATEWAY_PORT=5000
+      - WEBSOCKET_PORT=6000
+      - LOOKUPMUSICBAND_PORT=7100
+      - LOCATION_PORT=7200
+      - WEATHER_PORT=7300
+      - BREWERIES_PORT=7400
+      - MESSANGER_PORT=7500
+      - USER_PORT=8000
+      - FRONT_END_HOST=http://frontend:3000
+      - WEBSOCKET_HOST=http://websocket:6000/websocket
+      - LOOKUPMUSICBAND_HOST=http://lookupmusicband:7100
+      - LOCATION_HOST=http://location:7200
+      - WEATHER_HOST=http://weather:7300
+      - BREWERIES_HOST=http://breweries:7400
+      - MESSANGER_HOST=http://messanger:7500
+      - USER_HOST=http://user:8000
+  frontend:
+    image : ikopyl/react-frontend
+    ports:
+      - "3000:3000"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+  websocket:
+    image : ikopyl/websocket-app
+    depends_on:
+      - redis
+    ports:
+      - "6000:6000"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+    environment:
+      - REDIS_HOST=redis
+      - WEBSOCKET_PORT=6000
+  lookupmusicband:
+    image: ikopyl/lookupmusicband-app
+    depends_on:
+      - mongodb
+    ports:
+      - "7100:7100"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+    environment:
+      - DB_URL=mongodb://mongodb:27017
+      - DB_NAME=finalProject
+      - MONGODB_URI=mongodb://mongodb:27017/finalProject
+  location:
+    image: ikopyl/location-app
+    depends_on:
+      - mongodb
+    ports:
+      - "7200:7200"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+    environment:
+      - DB_URL=mongodb://mongodb:27017
+      - DB_NAME=finalProject
+      - MONGODB_URI=mongodb://mongodb:27017/finalProject
+  weather:
+    image: ikopyl/weather-app
+    depends_on:
+      - mongodb
+    ports:
+      - "7300:7300"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+    environment:
+      - DB_URL=mongodb://mongodb:27017
+      - DB_NAME=finalProject
+      - MONGODB_URI=mongodb://mongodb:27017/finalProject
+  breweries:
+    image: ikopyl/breweries-app
+    depends_on:
+      - mongodb
+    ports:
+      - "7400:7400"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+    environment:
+      - DB_URL=mongodb://mongodb:27017
+      - DB_NAME=finalProject
+      - MONGODB_URI=mongodb://mongodb:27017/finalProject
+  messanger:
+    image : ikopyl/messanger-app
+    depends_on:
+      - redis
+      - mongodb
+    ports:
+      - "7500:7500"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+    environment:
+      - REDIS_HOST=redis
+      - DB_URL=mongodb://mongodb:27017
+      - DB_NAME=finalProject
+      - MONGODB_URI=mongodb://mongodb:27017/finalProject
+  user:
+    image: ikopyl/user-app
+    depends_on:
+      - mongodb
+    ports:
+      - "8000:8000"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+    environment:
+      - DB_URL=mongodb://mongodb:27017
+      - DB_NAME=finalProject
+      - MONGODB_URI=mongodb://mongodb:27017/finalProject
+networks:
+  webnet:
