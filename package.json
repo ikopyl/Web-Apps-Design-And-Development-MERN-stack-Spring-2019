@@ -1,0 +1,30 @@
+{
+    "name": "dockerizator",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+    },
+    "scripts": {
+      "build-gateway" : "docker build -f devops/gateway.Dockerfile -t gateway . && docker tag gateway ikopyl/gateway && docker push ikopyl/gateway",
+      "build-websocket" : "docker build -f devops/websocket.Dockerfile -t websocket-app . && docker tag websocket-app ikopyl/websocket-app && docker push ikopyl/websocket-app",
+      "build-messanger" : "docker build -f devops/messanger.Dockerfile -t messanger-app . && docker tag messanger-app ikopyl/messanger-app && docker push ikopyl/messanger-app",
+      "build-frontend" : "docker build -f devops/frontend.Dockerfile -t react-frontend . && docker tag react-frontend ikopyl/react-frontend && docker push ikopyl/react-frontend",
+      "build-lookupmusicband" : "docker build -f devops/lookupmusicband.Dockerfile -t lookupmusicband-app . && docker tag lookupmusicband-app ikopyl/lookupmusicband-app && docker push ikopyl/lookupmusicband-app",
+      "build-location" : "docker build -f location.Dockerfile -t location-app . && docker tag location-app ikopyl/location-app && docker push ikopyl/location-app",
+      "build-weather" : "docker build -f weather.Dockerfile -t weather-app . && docker tag weather-app ikopyl/weather-app && docker push ikopyl/weather-app",
+      "build-breweries" : "docker build -f breweries.Dockerfile -t breweries-app . && docker tag breweries-app ikopyl/breweries-app && docker push ikopyl/breweries-app",
+      "build-user" : "docker build -f user.Dockerfile -t user-app . && docker tag user-app ikopyl/user-app && docker push ikopyl/user-app",
+      "deploy" : "docker-compose -f devops/docker-compose.yml pull && docker stack deploy -c devops/docker-compose.yml final-project-demo",
+      "stop": "docker stack remove final-project-demo"
+    },
+    "eslintConfig": {
+      "extends": "react-app"
+    },
+    "browserslist": [
+      ">0.2%",
+      "not dead",
+      "not ie <= 11",
+      "not op_mini all"
+    ]
+  }
+  
