@@ -66,20 +66,76 @@ services:
       - REDIS_HOST=redis
       - WEBSOCKET_PORT=6000
   lookupmusicband:
-    image:
+    image: ikopyl/lookupmusicband-app
+    depends_on:
+      - mongodb
+    ports:
+      - "7100:7100"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+    environment:
+      - DB_URL=mongodb://mongodb:27017
+      - DB_NAME=finalProject
+      - MONGODB_URI=mongodb://mongodb:27017/finalProject
   location:
-    image:
+    image: ikopyl/location-app
+    depends_on:
+      - mongodb
+    ports:
+      - "7200:7200"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+    environment:
+      - DB_URL=mongodb://mongodb:27017
+      - DB_NAME=finalProject
+      - MONGODB_URI=mongodb://mongodb:27017/finalProject
   weather:
-    image:
+    image: ikopyl/weather-app
+    depends_on:
+      - mongodb
+    ports:
+      - "7300:7300"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+    environment:
+      - DB_URL=mongodb://mongodb:27017
+      - DB_NAME=finalProject
+      - MONGODB_URI=mongodb://mongodb:27017/finalProject
   breweries:
-    image:
+    image: ikopyl/breweries-app
+    depends_on:
+      - mongodb
+    ports:
+      - "7400:7400"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+    environment:
+      - DB_URL=mongodb://mongodb:27017
+      - DB_NAME=finalProject
+      - MONGODB_URI=mongodb://mongodb:27017/finalProject
   messanger:
-    image : bparra/messanger-demo
+    image : ikopyl/messanger-app
     depends_on:
       - redis
       - mongodb
     ports:
-      - "5000:5000"
+      - "7500:7500"
     deploy:
       replicas: 1
       restart_policy:
@@ -88,8 +144,24 @@ services:
       - webnet
     environment:
       - REDIS_HOST=redis
-      - MONGO_HOST=mongodb://mongodb:27017
+      - DB_URL=mongodb://mongodb:27017
+      - DB_NAME=finalProject
+      - MONGODB_URI=mongodb://mongodb:27017/finalProject
   user:
-    image:
+    image: ikopyl/user-app
+    depends_on:
+      - mongodb
+    ports:
+      - "8000:8000"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+    environment:
+      - DB_URL=mongodb://mongodb:27017
+      - DB_NAME=finalProject
+      - MONGODB_URI=mongodb://mongodb:27017/finalProject
 networks:
   webnet:
