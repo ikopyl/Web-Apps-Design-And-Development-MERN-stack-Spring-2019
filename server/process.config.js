@@ -38,6 +38,7 @@ module.exports = {
     {
       name: 'userauth',
       script: './microservices/user.js',
+      watch: true
     }
   ]
 };
