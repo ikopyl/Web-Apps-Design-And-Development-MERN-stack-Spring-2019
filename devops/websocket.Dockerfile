@@ -4,8 +4,8 @@ WORKDIR /main
 COPY ./server/microservices/websocket.js /main/microservices
 COPY ./server/config.js /main
 
-COPY ./server/package.json ./main
-COPY ./server/package-lock.json ./main
+COPY ./server/package.json /main
+COPY ./server/package-lock.json /main
 
 RUN npm install
 
