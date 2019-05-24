@@ -1,7 +1,7 @@
 FROM node:10-alpine
 
 WORKDIR /main
-COPY ./server/microservices/messanger.js /main/microservices
+COPY ./server/microservices /main/microservices
 COPY ./server/config.js /main
 
 COPY ./server/package.json /main
