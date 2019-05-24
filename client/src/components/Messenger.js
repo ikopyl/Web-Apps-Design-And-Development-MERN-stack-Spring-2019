@@ -8,12 +8,15 @@ import {
 } from '../redux/actions/messageActions';
 import '../style/Messenger.css';
 
+import { PROXY_URL } from '../config';
+
 const Message = ({ data }) => <div>{data}</div>;
 
 class Messenger extends Component {
   componentDidMount() {
     axios
-      .get('/messanger/getMessages')
+      .get(`/messanger/getMessages`)
+      // .get(`${PROXY_URL}/messanger/getMessages`)
       .then((res) => {
         this.props.updateMessages(res.data);
       })
@@ -30,7 +33,7 @@ class Messenger extends Component {
 
   onChange = (e) => {
     this.props.insertMessage();
-  }
+  };
 
   handleTextChange = (e) => {
     this.props.handlTextChange(e.target.value);
@@ -77,7 +80,6 @@ const mapDispatchToProps = {
 };
 
 export default connect(
-  // from react-redux
   mapStateToProps,
   mapDispatchToProps
 )(Messenger);

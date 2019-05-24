@@ -5,11 +5,11 @@ const bodyParser = require('body-parser');
 const { MongoClient } = require('mongodb');
 
 const responseTemplate = require('./templates/ResponseTemplate');
-const config = require('../config');
-
-const PORT = config.BREWERIES_PORT;   // 7400
-const DB_URL = config.DB_URL;         // mongodb://localhost:27017
-const DB_NAME = config.DB_NAME;       // finalProject
+const {
+  BREWERIES_PORT,
+  DB_URL,
+  DB_NAME
+} = require('../config');
 
 //creating a new MongoClient
 const client = new MongoClient(DB_URL);
@@ -19,12 +19,7 @@ app.use(bodyParser.json());
 
 // you will need this method in each of your backends in order to establish a connection to the database and manage the async weirdness
 client.connect((err) => {
-  try {
-    console.log('Connected successfully to server');
-    const db = client.db(DB_NAME);
-  } catch {
-    console.log('error, database not connected');
-  }
+  const db = client.db(DB_NAME);
 
   //method to add to Database
   const addToDatabase = (collection, addThisObject) => {
@@ -129,6 +124,6 @@ client.connect((err) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Microservice breweries is listening on port ${PORT}`);
+app.listen(BREWERIES_PORT, () => {
+  console.log(`Microservice breweries is listening on port ${BREWERIES_PORT}`);
 });

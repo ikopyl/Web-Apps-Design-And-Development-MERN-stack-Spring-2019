@@ -1,25 +1,23 @@
 const express = require('express');
 const moment = require('moment');
 const axios = require('axios');
-const {MongoClient} = require('mongodb');
+const { MongoClient } = require('mongodb');
 
 const bodyParser = require('body-parser');
 
-//mongodb url & database name
-const databaseUrl = 'mongodb://localhost:27017';
-const databaseName = 'HW3';
+const { DB_NAME, DB_URL } = require('../config');
 
 //creating a new MongoClient
-const client = new MongoClient(databaseUrl);
+const client = new MongoClient(DB_URL);
 
 let db;
 
 //you will need this method in each of your backends in order to establish a connection to the database and manage the async weirdness
 const getConnection = (callback) => {
-  if(db) return callback(db);
+  if (db) return callback(db);
   client.connect((err) => {
-    console.log("Connected successfully to server");
-    db = client.db(databaseName);
+    console.log('Connected successfully to server');
+    db = client.db(DB_NAME);
     return callback(db);
   });
 };
@@ -35,10 +33,12 @@ const addToDatabase = (collection, addThisObject) => {
 //first parameter is the string name of the collection, second is an object {findObjectWithThisValue:"value"}, third is an object {updatedOrNewKey:"value"}
 const findAndUpdate = (collection, findThis, updateToThis) => {
   getConnection((connection) => {
-    connection.collection(collection).updateOne(findThis, {$set: updateToThis}, function(err, res) {
-      if(err) throw err;
-      console.log("1 document updated");
-    });
+    connection
+      .collection(collection)
+      .updateOne(findThis, { $set: updateToThis }, function(err, res) {
+        if (err) throw err;
+        console.log('1 document updated');
+      });
   });
 };
 
@@ -46,10 +46,12 @@ const findAndUpdate = (collection, findThis, updateToThis) => {
 //first parameter is the string name of the collection, second is an object {findObjectWithThisValue:"value"}, third is an object {updatedOrNewKey:"value"}
 const findAndUpdateMany = (collection, findThis, updateToThis) => {
   getConnection((connection) => {
-    connection.collection(collection).updateMany(findThis, {$set: updateToThis}, function(err, res) {
-      if(err) throw err;
-      console.log(res.result.nModified + " document(s) updated");
-    });
+    connection
+      .collection(collection)
+      .updateMany(findThis, { $set: updateToThis }, function(err, res) {
+        if (err) throw err;
+        console.log(res.result.nModified + ' document(s) updated');
+      });
   });
 };
 
@@ -58,8 +60,8 @@ const findAndUpdateMany = (collection, findThis, updateToThis) => {
 const findAndDelete = (collection, findThis) => {
   getConnection((connection) => {
     connection.collection(collection).deleteOne(findThis, function(err, res) {
-      if(err) throw err;
-      console.log("1 document deleted");
+      if (err) throw err;
+      console.log('1 document deleted');
     });
   });
 };
@@ -69,8 +71,8 @@ const findAndDelete = (collection, findThis) => {
 const findAndDeleteMany = (collection, findThis) => {
   getConnection((connection) => {
     connection.collection(collection).deleteMany(findThis, function(err, res) {
-      if(err) throw err;
-      console.log(res.result.n + " document(s) deleted");
+      if (err) throw err;
+      console.log(res.result.n + ' document(s) deleted');
     });
   });
 };

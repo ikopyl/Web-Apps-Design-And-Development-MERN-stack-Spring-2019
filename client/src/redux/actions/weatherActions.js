@@ -1,11 +1,13 @@
 import axios from 'axios';
 
 import {SEARCH_WEATHER} from './types';
+import { PROXY_URL } from '../../config';
 
 export const searchWeather = (searchCity, searchState) => dispatch => {
   console.log('action called: searchWeather', searchCity, searchState);
 
   const endpoint = `/weather?city=${searchCity}`;
+  // const endpoint = `${PROXY_URL}/weather?city=${searchCity}`;
   return axios
     .get(endpoint)
     .then(res => {

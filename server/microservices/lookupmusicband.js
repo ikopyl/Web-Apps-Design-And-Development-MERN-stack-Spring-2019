@@ -4,19 +4,18 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const config = require('../config');
+// const config = require('../config');
 
 const routes = require('./routes/lookupmusicbandRoutes');
 
 const app = express();
-const PORT = config.LOOKUPMUSICBAND_PORT;     // 7100
-const MONGODB_URI = config.MONGODB_URI;       // mongodb://localhost:27017/finalProject
 
-// const DB_URL =
-//   process.env.LOOKUPMUSICBAND_DB_URL || 'mongodb://localhost:27017';
-// const DB_NAME = process.env.LOOKUPMUSICBAND_DB_NAME || 'finalProject';
+const {
+  LOOKUPMUSICBAND_PORT,
+  MONGODB_URI
+} = require('../config');
 
-app.listen(PORT, () => {
+app.listen(LOOKUPMUSICBAND_PORT, () => {
   mongoose.Promise = global.Promise;
   mongoose.connect(`${MONGODB_URI}`, {
     useNewUrlParser: true,
@@ -28,7 +27,7 @@ app.listen(PORT, () => {
 const db = mongoose.connection;
 
 db.once('open', () => {
-  console.log(`Microservice lookupmusicband started on port ${PORT}`);
+  console.log(`Microservice lookupmusicband started on port ${LOOKUPMUSICBAND_PORT}`);
 });
 
 db.on('connected', () => {

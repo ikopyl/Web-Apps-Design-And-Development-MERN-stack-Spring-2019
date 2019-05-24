@@ -4,11 +4,12 @@ const { MongoClient } = require('mongodb');
 const redis = require('redis');
 const client = redis.createClient();
 
-const config = require('../config');
-const PORT = config.MESSANGER_PORT; // 7500
-const DB_URL = config.DB_URL; // mongodb://localhost:27017
-const DB_NAME = config.DB_NAME; // finalProject
-const DB_MESSANGER_COLLECTION_NAME = config.DB_MESSANGER_COLLECTION_NAME;     // messages collection
+const {
+  MESSANGER_PORT,
+  DB_URL,
+  DB_NAME,
+  DB_MESSANGER_COLLECTION_NAME
+} = require('../config');
 
 //move app logic in here
 const app = express();
@@ -42,8 +43,8 @@ mongoClient.connect((err) => {
     res.send('ok');
   });
 
-  app.listen(PORT, () => {
-    console.log(`Microservice messenger is listening on port ${PORT}`);
+  app.listen(MESSANGER_PORT, () => {
+    console.log(`Microservice messenger is listening on port ${MESSANGER_PORT}`);
   });
   //end app logic
 });

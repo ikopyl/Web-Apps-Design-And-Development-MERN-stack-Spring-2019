@@ -2,24 +2,16 @@ const express = require('express');
 const server = require('http');
 const httpProxy = require('http-proxy');
 
-const config = require('./config');
-const PORT = config.GATEWAY_PORT;                           // 5000
-
-const WEBSOCKET_PORT = config.WEBSOCKET_PORT;               // 6000
-const LOOKUPMUSICBAND_PORT = config.LOOKUPMUSICBAND_PORT;   // 7100
-const LOCATION_PORT = config.LOCATION_PORT;                 // 7200
-const WEATHER_PORT = config.WEATHER_PORT;                   // 7300
-const BREWERIES_PORT = config.BREWERIES_PORT;               // 7400
-const MESSANGER_PORT = config.MESSANGER_PORT;               // 7500
-const USER_PORT = config.USER_PORT;                         // 8000
-
-const WEBSOCKET_HOST = config.WEBSOCKET_HOST;               // localhost:6000
-const LOOKUPMUSICBAND_HOST = config.LOOKUPMUSICBAND_HOST;   // localhost:7100
-const LOCATION_HOST = config.LOCATION_HOST;                 // localhost:7200
-const WEATHER_HOST = config.WEATHER_HOST;                   // localhost:7300
-const BREWERIES_HOST = config.BREWERIES_HOST;               // localhost:7400
-const MESSANGER_HOST = config.MESSANGER_HOST;               // localhost:7500
-const USER_HOST = config.USER_HOST;                         // localhost:8000
+const {
+  GATEWAY_PORT,
+  WEBSOCKET_HOST,
+  LOOKUPMUSICBAND_HOST,
+  LOCATION_HOST,
+  WEATHER_HOST,
+  BREWERIES_HOST,
+  MESSANGER_HOST,
+  USER_HOST,
+} = require('./config');
 
 const app = express();
 const appServer = server.createServer(app);
@@ -80,4 +72,5 @@ appServer.on('upgrade', (req, socket, head) => {
 });
 
 // app.listen(PORT, () => console.log(`Gateway started on port ${PORT}`));
-appServer.listen(PORT);
+app.listen(GATEWAY_PORT, () => console.log(`Gateway started on port ${GATEWAY_PORT}`));
+// appServer.listen(GATEWAY_PORT);
