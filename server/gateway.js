@@ -1,6 +1,7 @@
 const express = require('express');
 const server = require('http');
 const httpProxy = require('http-proxy');
+const cors = require('cors');
 
 const {
   GATEWAY_PORT,
@@ -14,6 +15,7 @@ const {
 } = require('./config');
 
 const app = express();
+app.use(cors());
 const appServer = server.createServer(app);
 const apiProxy = httpProxy.createProxyServer(app);
 

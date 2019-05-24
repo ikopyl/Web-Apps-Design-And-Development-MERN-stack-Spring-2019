@@ -11,4 +11,7 @@ RUN npm install
 
 EXPOSE 7100
 
+EXPOSE 80
+EXPOSE 5000
+
 CMD ["node", "./microservices/lookupmusicband.js"]

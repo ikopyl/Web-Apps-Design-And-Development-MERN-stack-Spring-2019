@@ -1,2 +1,2 @@
-export const PROXY_URL = process.env.PROXY_URL || 'http://localhost:5000';
-export const WEBSOCKET_URL = process.env.WEBSOCKET_URL || 'ws://localhost:5000/websocket';
+export const REACT_APP_PROXY_URL = process.env.REACT_APP_PROXY_URL || 'http://localhost:5000';
+export const WEBSOCKET_URL = process.env.REACT_APP_WEBSOCKET_URL || 'ws://localhost:5000/websocket';
