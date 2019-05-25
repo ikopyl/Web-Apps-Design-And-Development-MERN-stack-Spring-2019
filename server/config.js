@@ -1,6 +1,7 @@
 const ENV = process.env.NODE_ENV || 'development';
 
 const REDIS_HOST = process.env.REDIS_HOST || 'localhost';
+
 const DB_URL = process.env.DB_URL || 'mongodb://localhost:27017';
 const DB_NAME = process.env.DB_NAME || 'finalProject';
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/finalProject';
@@ -8,10 +9,9 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/finalP
 const DB_MESSANGER_COLLECTION_NAME = process.env.DB_MESSANGER_COLLECTION_NAME || 'messages';
 
 const GATEWAY_PORT = process.env.GATEWAY_PORT || 5000;
-// const FRONT_END_HOST = process.env.FRONT_END_HOST || 'http://localhost:3000';
 
-const WEBSOCKET_HOST = process.env.WEBSOCKET_HOST || 'http://localhost:6000/websocket';
-const WEBSOCKET_PORT = process.env.WEBSOCKET_PORT || 6000;
+const WEBSOCKET_PORT = process.env.WEBSOCKET_PORT || 9000;
+const WEBSOCKET_HOST = process.env.WEBSOCKET_HOST || 'http://localhost:9000/websocket';
 const LOOKUPMUSICBAND_HOST = process.env.LOOKUPMUSICBAND_HOST || 'http://localhost:7100';
 const LOOKUPMUSICBAND_PORT = process.env.LOOKUPMUSICBAND_PORT || 7100;
 const LOCATION_HOST = process.env.LOCATION_HOST || 'http://localhost:7200';
@@ -28,17 +28,14 @@ const USER_PORT = process.env.USER_PORT || 8000;
 const JWT_SECRET = process.env.JWT_SECRET || 'w#7fluDS7pv2JsRPE1IeEQH$hiaRtaXE';
 
 
-
-  // URL: process.env.BASE_URL || 'http://localhost:7500',
-
 module.exports = {
   REDIS_HOST,
   DB_URL,
   DB_NAME,
   MONGODB_URI,
   DB_MESSANGER_COLLECTION_NAME,
-  WEBSOCKET_HOST,
   WEBSOCKET_PORT,
+  WEBSOCKET_HOST,
   LOOKUPMUSICBAND_HOST,
   LOOKUPMUSICBAND_PORT,
   LOCATION_HOST,
@@ -51,5 +48,6 @@ module.exports = {
   MESSANGER_PORT,
   USER_HOST,
   USER_PORT,
-  GATEWAY_PORT
+  GATEWAY_PORT,
+  JWT_SECRET
 };
