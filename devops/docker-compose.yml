@@ -25,15 +25,14 @@ services:
       - webnet
     environment:
       - GATEWAY_PORT=5000
-      - WEBSOCKET_PORT=6000
       - LOOKUPMUSICBAND_PORT=7100
       - LOCATION_PORT=7200
       - WEATHER_PORT=7300
       - BREWERIES_PORT=7400
       - MESSANGER_PORT=7500
       - USER_PORT=8000
+      - WEBSOCKET_PORT=9000
       - FRONT_END_HOST=http://frontend:3000
-      - WEBSOCKET_HOST=http://websocket:6000/websocket
       - LOOKUPMUSICBAND_HOST=http://lookupmusicband:7100
       - LOCATION_HOST=http://location:7200
       - WEATHER_HOST=http://weather:7300
@@ -52,7 +51,7 @@ services:
       - webnet
     environment:
       - REACT_APP_PROXY_URL=http://gateway:5000
-      - REACT_APP_WEBSOCKET_URL=ws://gateway:6000/websocket
+      - REACT_APP_WEBSOCKET_URL=ws://gateway:9000/websocket
   websocket:
     image : ikopyl/websocket-app
     depends_on:
