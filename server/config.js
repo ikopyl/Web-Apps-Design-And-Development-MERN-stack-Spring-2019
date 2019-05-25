@@ -9,7 +9,6 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/finalP
 const DB_MESSANGER_COLLECTION_NAME = process.env.DB_MESSANGER_COLLECTION_NAME || 'messages';
 
 const GATEWAY_PORT = process.env.GATEWAY_PORT || 5000;
-// const FRONT_END_HOST = process.env.FRONT_END_HOST || 'http://localhost:3000';
 
 const WEBSOCKET_PORT = process.env.WEBSOCKET_PORT || 9000;
 const WEBSOCKET_HOST = process.env.WEBSOCKET_HOST || 'http://localhost:9000/websocket';
@@ -28,9 +27,6 @@ const USER_PORT = process.env.USER_PORT || 8000;
 
 const JWT_SECRET = process.env.JWT_SECRET || 'w#7fluDS7pv2JsRPE1IeEQH$hiaRtaXE';
 
-
-
-  // URL: process.env.BASE_URL || 'http://localhost:7500',
 
 module.exports = {
   REDIS_HOST,
@@ -52,5 +48,6 @@ module.exports = {
   MESSANGER_PORT,
   USER_HOST,
   USER_PORT,
-  GATEWAY_PORT
+  GATEWAY_PORT,
+  JWT_SECRET
 };

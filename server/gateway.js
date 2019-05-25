@@ -26,44 +26,36 @@ apiProxy.on('error', (err, req, res) => {
 });
 
 const wsProxy = httpProxy.createProxyServer({
-  // target: `http://localhost:${WEBSOCKET_PORT}`,
   target: WEBSOCKET_HOST,
   ws: true
 });
 
 app.all('/search*', (req, res) => {
-  // apiProxy.web(req, res, { target: `http://localhost:${LOOKUPMUSICBAND_PORT}/` });
   apiProxy.web(req, res, { target: LOOKUPMUSICBAND_HOST });
 });
 
 app.all('/location*', (req, res) => {
-  // apiProxy.web(req, res, { target: `http://localhost:${LOCATION_PORT}/` });
   apiProxy.web(req, res, { target: LOCATION_HOST });
 });
 
 app.all('/weather*', (req, res) => {
-  // apiProxy.web(req, res, { target: `http://localhost:${WEATHER_PORT}/` });
   apiProxy.web(req, res, { target: WEATHER_HOST });
 });
 
 app.all('/breweries*', (req, res) => {
-  // apiProxy.web(req, res, { target: `http://localhost:${BREWERIES_PORT}/` });
   apiProxy.web(req, res, { target: BREWERIES_HOST });
 });
 
 app.all('/messanger*', (req, res) => {
-  // apiProxy.web(req, res, { target: `http://localhost:${MESSANGER_PORT}` });
   apiProxy.web(req, res, { target: MESSANGER_HOST });
 });
 
 app.all('/websocket*', (req, res) => {
   console.log('incoming ws');
-  // apiProxy.web(req, res, { target: `http://localhost:${WEBSOCKET_PORT}/websocket` });
   apiProxy.web(req, res, { target: WEBSOCKET_HOST });
 });
 
 app.all('/user*', (req, res) => {
-  // apiProxy.web(req, res, { target: `http://localhost:${USER_PORT}/` });
   apiProxy.web(req, res, { target: USER_HOST });
 });
 
@@ -73,6 +65,4 @@ appServer.on('upgrade', (req, socket, head) => {
   wsProxy.ws(req, socket, head);
 });
 
-// app.listen(PORT, () => console.log(`Gateway started on port ${PORT}`));
 app.listen(GATEWAY_PORT, () => console.log(`Gateway started on port ${GATEWAY_PORT}`));
-// appServer.listen(GATEWAY_PORT);
