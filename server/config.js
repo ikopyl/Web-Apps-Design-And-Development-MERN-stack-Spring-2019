@@ -1,6 +1,7 @@
 const ENV = process.env.NODE_ENV || 'development';
 
 const REDIS_HOST = process.env.REDIS_HOST || 'localhost';
+
 const DB_URL = process.env.DB_URL || 'mongodb://localhost:27017';
 const DB_NAME = process.env.DB_NAME || 'finalProject';
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/finalProject';

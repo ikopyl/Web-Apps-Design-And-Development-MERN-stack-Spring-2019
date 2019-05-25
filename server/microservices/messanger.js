@@ -2,14 +2,18 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { MongoClient } = require('mongodb');
 const redis = require('redis');
-const client = redis.createClient();
 
 const {
   MESSANGER_PORT,
   DB_URL,
   DB_NAME,
-  DB_MESSANGER_COLLECTION_NAME
+  DB_MESSANGER_COLLECTION_NAME,
+  REDIS_HOST
 } = require('../config');
+
+const client = redis.createClient({
+  host: REDIS_HOST
+});
 
 //move app logic in here
 const app = express();
