@@ -9,6 +9,6 @@ COPY ./server/package-lock.json /main
 
 RUN npm install
 
-EXPOSE 6000
+EXPOSE 9000
 
 CMD ["node", "./microservices/websocket.js"]
