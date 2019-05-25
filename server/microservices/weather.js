@@ -5,16 +5,18 @@ const { MongoClient } = require('mongodb');
 
 const bodyParser = require('body-parser');
 
-const config = require('../config');
+// const config = require('../config');
+const {
+  WEATHER_PORT,
+  DB_URL,
+  DB_NAME
+} = require('../config');
+
 const responseTemplate = require('./templates/ResponseTemplate');
 
 //creating an app here as a microservice
 const app = express();
 app.use(bodyParser.json());
-
-const PORT = config.WEATHER_PORT;     // 7300
-const DB_URL = config.DB_URL;         // mongodb://localhost:27017
-const DB_NAME = config.DB_NAME;       // finalProject
 
 //creating a new MongoClient
 const client = new MongoClient(DB_URL);
@@ -172,6 +174,6 @@ app.get('/weather', (req, res) => {
     });
 });
 
-app.listen(PORT, () => {
-  console.log(`Microservice weather is listening on port ${PORT}`);
+app.listen(WEATHER_PORT, () => {
+  console.log(`Microservice weather is listening on port ${WEATHER_PORT}`);
 });

@@ -33,3 +33,9 @@ cd ./server && pm2 start process.config.js
 ```bash
 cd ./client && npm start
 ```
+
+## How to test Docker containers:
+```bash
+cd devops && docker-compose pull && docker-compose up
+```
+- then open a browser and navigate to http://localhost

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import LocationData from '../LocationData';
 
 const Header = () => {
@@ -10,25 +10,25 @@ const Header = () => {
         <Link className="linkStyle" to="/">
           Home
         </Link>
-        <i className="home icon white"></i>
+        <i className="home icon white" />
         <span> | </span>
         <Link className="linkStyle" to="/breweries">
           Breweries
         </Link>
-        <i className="beer icon yellow"></i>
+        <i className="beer icon yellow" />
         <span> | </span>
         <Link className="linkStyle" to="/weather">
           Weather
         </Link>
-        <i className="sun icon gold"></i>
+        <i className="sun icon gold" />
         <span> | </span>
         <Link className="linkStyle" to="/lookupmusicband">
           Lookup Music Band
         </Link>
-        <i className="headphones icon red"></i>
+        <i className="headphones icon red" />
       </span>
-      <span className='columnStyle'>
-          <LocationData/>
+      <span className="columnStyle">
+        <LocationData />
       </span>
     </header>
   );

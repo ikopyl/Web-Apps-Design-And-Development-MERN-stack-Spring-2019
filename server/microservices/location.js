@@ -6,13 +6,14 @@ const axios = require('axios');
 const bodyParser = require('body-parser');
 
 const responseTemplate = require('./templates/ResponseTemplate');
-const config = require('../config');
+// const config = require('../config');
+const {
+  LOCATION_PORT
+} = require('../config');
 
 //creating an app here as a microservice
 const app = express();
 app.use(bodyParser.json());
-
-const PORT = config.LOCATION_PORT; // 7200
 
 //get location information
 // A query parameter is expected,?format=json | jsonp | xml | csv | yaml
@@ -70,6 +71,6 @@ app.get('/location', (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Microservice location is listening on port ${PORT}`);
+app.listen(LOCATION_PORT, () => {
+  console.log(`Microservice location is listening on port ${LOCATION_PORT}`);
 });

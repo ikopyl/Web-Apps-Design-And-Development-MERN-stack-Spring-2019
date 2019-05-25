@@ -1,13 +1,15 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './redux/reducers';
-import {insertMessage} from './redux/actions/messageActions';
+import { insertMessage } from './redux/actions/messageActions';
+
+import { REACT_APP_WEBSOCKET_URL } from './config';
 
 const initialState = {};
 
 const middleware = [thunk];
 
-const webSocket = new WebSocket('ws://localhost:5000/websocket');
+const webSocket = new WebSocket(REACT_APP_WEBSOCKET_URL);
 
 webSocket.onmessage = (message) => {
   console.log(message);

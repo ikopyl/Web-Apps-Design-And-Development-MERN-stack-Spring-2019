@@ -28,6 +28,8 @@ class Tiles extends Component {
         return <Messenger />;
       case '':
         return 'Select an App';
+      default:
+        return 'Select an App';
     }
   };
 
