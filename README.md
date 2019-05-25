@@ -1,4 +1,10 @@
-# Homework Assignment #3
+# CSc 667/867 Final Project
+
+## The live app running as a docker swarm on EC2 instance on AWS:
+http://ec2-18-222-137-26.us-east-2.compute.amazonaws.com/
+
+## Dockerhub repos
+https://cloud.docker.com/u/ikopyl/repository/list
 
 ### Authors
 * Ilya Kopyl (ikopyl@mail.sfsu.edu)
