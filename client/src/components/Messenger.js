@@ -8,15 +8,14 @@ import {
 } from '../redux/actions/messageActions';
 import '../style/Messenger.css';
 
-import { PROXY_URL } from '../config';
+import { REACT_APP_PROXY_URL } from '../config';
 
 const Message = ({ data }) => <div>{data}</div>;
 
 class Messenger extends Component {
   componentDidMount() {
     axios
-      .get(`/messanger/getMessages`)
-      // .get(`${PROXY_URL}/messanger/getMessages`)
+      .get(`${REACT_APP_PROXY_URL}/messanger/getMessages`)
       .then((res) => {
         this.props.updateMessages(res.data);
       })

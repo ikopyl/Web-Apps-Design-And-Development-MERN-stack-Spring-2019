@@ -16,7 +16,6 @@ export const searchAlbums = () => (dispatch, getState) => {
   const bandName = getState().musicSearch.bandName;
 
   console.log(`REACT_APP_PROXY_URL: ${REACT_APP_PROXY_URL}`);
-  // const endpoint = `/search?name=${bandName}`;
   const endpoint = `${REACT_APP_PROXY_URL}/search?name=${bandName}`;
   return axios
     .get(endpoint)
@@ -40,7 +39,6 @@ export const searchAlbums = () => (dispatch, getState) => {
 export const saveToDB = () => (dispatch, getState) => {
   console.log('action called: saveToDB');
 
-  // const endpoint = `/search_result`;
   const endpoint = `${REACT_APP_PROXY_URL}/search_result`;
 
   const bandName = getState().musicSearch.bandName;
@@ -74,7 +72,6 @@ export const loadFromDB = () => (dispatch, getState) => {
 
   const bandName = getState().musicSearch.bandName;
 
-  // const endpoint = `/search_result?name=${bandName}`;
   const endpoint = `${REACT_APP_PROXY_URL}/search_result?name=${bandName}`;
   return axios
     .get(endpoint)
@@ -96,7 +93,6 @@ export const checkIfBandInDB = () => (dispatch, getState) => {
 
   const bandName = getState().musicSearch.bandName;
 
-  // const endpoint = `/search_results`;
   const endpoint = `${REACT_APP_PROXY_URL}/search_results`;
   return axios
     .get(endpoint)

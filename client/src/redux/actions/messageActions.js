@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { PROXY_URL } from '../../config';
+import { REACT_APP_PROXY_URL } from '../../config';
 
 export const updateMessages = (messages) => {
   return {
@@ -26,8 +26,9 @@ export const handlTextChange = (text) => {
 
 export const submitMessage = () => (dispatch, getState) => {
   axios
-    .post(`/messanger/postMessage`, { message: getState().messageReducer.text })
-    // .post(`${PROXY_URL}/messanger/postMessage`, { message: getState().messageReducer.text })
+    .post(`${REACT_APP_PROXY_URL}/messanger/postMessage`, {
+      message: getState().messageReducer.text
+    })
     .then(() => {})
     .catch((e) => console.log(e));
   dispatch(handlTextChange(''));

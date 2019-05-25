@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import { PROXY_URL } from '../config';
+import { REACT_APP_PROXY_URL } from '../config';
 
 class LocationData extends Component {
   constructor() {
@@ -16,8 +16,7 @@ class LocationData extends Component {
 
   componentDidMount() {
     axios
-      .get('/location?format=json')
-      // axios.get(`${PROXY_URL}/location?format=json`)
+      .get(`${REACT_APP_PROXY_URL}/location?format=json`)
       .then((res) => {
         //console.log("this is the response ", res.data.response)
         this.setState({
@@ -28,8 +27,7 @@ class LocationData extends Component {
       .then((res) => {
         //console.log(this.state.locationData.latitude, this.state.locationData.longitude);
         return axios.get(
-          '/weather/search?lattlong=' +
-            // `${PROXY_URL}/weather/search?lattlong=`
+            `${REACT_APP_PROXY_URL}/weather/search?lattlong=` +
             res.data.response.latitude +
             ',' +
             res.data.response.longitude
