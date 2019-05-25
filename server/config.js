@@ -10,8 +10,7 @@ const DB_MESSANGER_COLLECTION_NAME = process.env.DB_MESSANGER_COLLECTION_NAME ||
 const GATEWAY_PORT = process.env.GATEWAY_PORT || 5000;
 // const FRONT_END_HOST = process.env.FRONT_END_HOST || 'http://localhost:3000';
 
-const WEBSOCKET_HOST = process.env.WEBSOCKET_HOST || 'http://localhost:6000/websocket';
-const WEBSOCKET_PORT = process.env.WEBSOCKET_PORT || 6000;
+const WEBSOCKET_PORT = process.env.WEBSOCKET_PORT || 9000;
 const LOOKUPMUSICBAND_HOST = process.env.LOOKUPMUSICBAND_HOST || 'http://localhost:7100';
 const LOOKUPMUSICBAND_PORT = process.env.LOOKUPMUSICBAND_PORT || 7100;
 const LOCATION_HOST = process.env.LOCATION_HOST || 'http://localhost:7200';
@@ -37,7 +36,6 @@ module.exports = {
   DB_NAME,
   MONGODB_URI,
   DB_MESSANGER_COLLECTION_NAME,
-  WEBSOCKET_HOST,
   WEBSOCKET_PORT,
   LOOKUPMUSICBAND_HOST,
   LOOKUPMUSICBAND_PORT,
